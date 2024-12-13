@@ -1,0 +1,19 @@
+<div class="flex flex-col">
+  <mat-nav-list>
+    @for (menuItem of menuItems(); track menuItem) {
+      <a
+        mat-list-item
+        [activated]="currentRoute() === menuItem.path"
+        [routerLink]="menuItem.route"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        [ngClass]="isCollapsed() ? 'collapsed' : 'expanded'"
+      >
+        <mat-icon matListItemIcon>{{ menuItem.icon }}</mat-icon>
+        @if (!isCollapsed()) {
+          <span matListItemTitle>{{ menuItem.label }}</span>
+        }
+      </a>
+    }
+  </mat-nav-list>
+</div>

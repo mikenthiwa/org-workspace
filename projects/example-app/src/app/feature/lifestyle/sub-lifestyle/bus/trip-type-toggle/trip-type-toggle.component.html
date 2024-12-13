@@ -1,0 +1,13 @@
+<div class="flex border-2 rounded-md justify-between w-1/2 cursor-pointer border-primary">
+  @for (type of tripTypes(); track type) {
+    <div
+      class="w-1/2 text-center py-2"
+      (click)="toggleTripType.emit(type)"
+      [ngClass]="tripType() === type ? 'bg-primary text-secondary-100' : ''"
+      (keydown.enter)=toggleTripType.emit(type)
+      tabindex="0"
+    >
+      {{ type }}
+    </div>
+  }
+</div>

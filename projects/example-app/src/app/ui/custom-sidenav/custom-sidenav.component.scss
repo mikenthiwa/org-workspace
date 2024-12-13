@@ -1,0 +1,18 @@
+:host {
+  mat-nav-list {
+    padding: 0;
+  }
+  a[mat-list-item] {
+    border-radius: 8px;
+    &.collapsed {
+      background: none;
+    }
+  }
+
+  .active span[matListItemTitle] {
+    font-weight: bold;
+  }
+}
+
+
+

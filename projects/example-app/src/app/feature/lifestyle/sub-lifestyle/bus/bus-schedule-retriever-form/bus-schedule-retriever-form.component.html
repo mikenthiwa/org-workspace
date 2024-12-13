@@ -1,0 +1,55 @@
+<my-org-trip-type-toggle [tripType]="tripType()" (toggleTripType)="toggleTripType($event)" />
+<div class="w-full">
+  <form [formGroup]="busScheduleRetrievalForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    <mat-form-field appearance="outline">
+      <mat-label>From</mat-label>
+      <mat-select formControlName="leaving_from" >
+        @for(city of cities; track city){
+          <mat-option [value]="city">{{ city }}</mat-option>
+        }
+      </mat-select>
+      @if (busScheduleRetrievalForm.get('leaving_from')?.hasError('required')) {
+        <mat-error>City is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>to</mat-label>
+      <mat-select  formControlName="going_to" >
+        @for(city of cities; track city){
+          <mat-option [value]="city">{{ city }}</mat-option>
+        }
+      </mat-select>
+      @if (busScheduleRetrievalForm.get('going_to')?.hasError('required')) {
+        <mat-error>City is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Departure Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="departure_on" >
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      @if (busScheduleRetrievalForm.get('departure_on')?.hasError('required')) {
+        <mat-error>Departure Date is required</mat-error>
+      }
+    </mat-form-field>
+
+    @if (tripType() === 'return') {
+      <mat-form-field appearance="outline">
+        <mat-label>Return Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="return_on">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (busScheduleRetrievalForm.get('return_on')?.hasError('required')) {
+          <mat-error>Return Date is required</mat-error>
+        }
+      </mat-form-field>
+    }
+
+  </form>
+  <button class="w-1/2 mt-5" mat-raised-button type="submit" [disabled]="busScheduleRetrievalForm.invalid">Search</button>
+</div>

@@ -1,0 +1,14 @@
+<mat-toolbar>
+  <button mat-icon-button (click)="toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container autosize>
+  <mat-sidenav [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()" class="pr-5 pl-2" [ngClass]="isCollapsed() ? 'collapsed' : 'expanded'">
+    <my-org-custom-sidenav [currentRoute]="currentRoute()" [isCollapsed]="isCollapsed()" />
+  </mat-sidenav>
+  <mat-sidenav-content class="py-3 px-5">
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>
