@@ -10,7 +10,7 @@ export default [
     path: 'bus-schedule-retriever-form',
     loadComponent: () =>
       import(
-        './bus-schedule-retriever-form/bus-schedule-retriever-form.component'
-      ).then((m) => m.BusScheduleRetrieverFormComponent),
+        './bus-schedule-retriever-page/bus-schedule-retriever-page.component'
+      ).then((m) => m.BusScheduleRetrieverPageComponent),
   },
 ] as Routes;

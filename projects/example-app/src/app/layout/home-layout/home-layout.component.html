@@ -8,7 +8,7 @@
   <mat-sidenav [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()" class="pr-5 pl-2" [ngClass]="isCollapsed() ? 'collapsed' : 'expanded'">
     <my-org-custom-sidenav [currentRoute]="currentRoute()" [isCollapsed]="isCollapsed()" />
   </mat-sidenav>
-  <mat-sidenav-content class="py-3 px-5">
+  <mat-sidenav-content class="py-3 px-5 w-full md:w-3/4">
     <router-outlet />
   </mat-sidenav-content>
 </mat-sidenav-container>

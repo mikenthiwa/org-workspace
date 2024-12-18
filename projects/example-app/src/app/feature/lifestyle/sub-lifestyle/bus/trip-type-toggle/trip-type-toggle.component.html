@@ -7,7 +7,7 @@
       (keydown.enter)=toggleTripType.emit(type)
       tabindex="0"
     >
-      {{ type }}
+      {{ type | titlecase }}
     </div>
   }
 </div>

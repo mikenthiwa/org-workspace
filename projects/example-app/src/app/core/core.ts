@@ -8,7 +8,8 @@ import {
 } from '@angular/router';
 import { provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { headersInterceptor } from './interceptors/headers.interceptor';
 
 interface CoreOptions {
   routes: Routes;
@@ -18,7 +19,7 @@ export function provideCore({ routes }: CoreOptions) {
   return [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideAnimationsAsync(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([headersInterceptor])),
     provideRouter(
       routes,
       withRouterConfig({ onSameUrlNavigation: 'reload' }),

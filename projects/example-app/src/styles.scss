@@ -32,6 +32,12 @@ html {
     outlined-outline-width: 2px,
   ));
 
+}/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 
   .mdc-notched-outline__notch{
     border-right: none;
@@ -40,21 +46,6 @@ html {
   .mdc-button {
     border-radius: 8px;
   }
-}/* You can add global styles to this file, and also import other style files */
-
-html, body {
-  height: 100%;
-  background: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-
-  button[mat-flat-button] {
-    border-radius: 8px;
-  }
 }
-
-body {
-  //background: #FCFCFC;
-}
-
 
 

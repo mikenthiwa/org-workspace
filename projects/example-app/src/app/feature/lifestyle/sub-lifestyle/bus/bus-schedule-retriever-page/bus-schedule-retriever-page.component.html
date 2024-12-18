@@ -1,0 +1,4 @@
+<my-org-trip-type-toggle [tripType]="tripType()" (toggleTripType)="toggleTripType($event)" />
+<div class="mt-5">
+  <my-org-bus-schedule-retriever-form [cities]="cities()" [tripType]="tripType()" [isLoading]="isLoading()" (submitForm)="fetchBusSchedule($event)" />
+</div>
