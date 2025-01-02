@@ -1,45 +1,61 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-//@use "theme-colors" as matx;
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 $primary: var(--mat-sys-primary);
+$secondary: var(--mat-sys-secondary);
 
 html {
   color-scheme: light;
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette
-    ),
-    typography: (
-      plain-family: 'Roboto, sans-serif',
-      regular-weight: 200,
-      bold-weight: 900,
-      medium-weight: 500,
-    ),
-    density: 0,
-  ));
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+      ),
+      typography: (
+        plain-family: 'Roboto, sans-serif',
+        regular-weight: 200,
+        bold-weight: 900,
+        medium-weight: 500,
+      ),
+      density: 0,
+    )
+  );
 
   //@include matx.high-contrast-overrides(light);
 
+  @include mat.card-overrides(
+    (
+      outlined-outline-color: $primary,
+      outlined-outline-width: 1px,
+      outlined-container-elevation: --mat-sys-level5,
+      subtitle-text-color: $primary,
+    )
+  );
 
-  @include mat.card-overrides((
-    outlined-outline-color: $primary,
-    outlined-outline-width: 2px,
-  ));
+  .mat-mdc-card.mat-elevation-z8 {
+    @include mat.elevation(8);
+  }
 
-}/* You can add global styles to this file, and also import other style files */
+  .mat-mdc-card {
+    box-shadow: var(--mat-sys-level1);
+    background: var(--mat-sys-on-primary);
+    &:hover {
+      box-shadow: var(--mat-sys-level5);
+    }
+  }
+} /* You can add global styles to this file, and also import other style files */
 
-html, body {
+html,
+body {
   height: 100%;
   background: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
 
-  .mdc-notched-outline__notch{
+  .mdc-notched-outline__notch {
     border-right: none;
   }
 
@@ -47,5 +63,3 @@ html, body {
     border-radius: 8px;
   }
 }
-
-

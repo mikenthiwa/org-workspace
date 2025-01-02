@@ -1,5 +1,6 @@
 export interface FeatureModel {
-  featureName: string;
+  label: string;
   icon: string;
   route: string;
+  featureName: string;
 }

@@ -8,50 +8,14 @@ interface Operator {
 interface BoardingPoint {
   id: number;
   name: string;
-}
-
-interface SeatType {
-  id: string;
-  alias: string;
-  fare: number;
-  name: string;
-  currency: string;
-  available_seat_ids: string[];
+  address: string;
+  booked_seat_session_id?: string;
 }
 
 interface ScheduleOperator {
   alias: string;
   name: string;
   logo: string;
-}
-
-interface SelectedBus {
-  from: string;
-  to: string;
-  departure_date: string;
-  bus_type_id: string;
-  operator: Operator;
-  is_express_travel: string;
-  number_of_booked_seats: number;
-  id: number;
-  make: string;
-  route_id: string;
-  route_schedule_id: string;
-  route_schedule_code: string;
-  departure_time: string;
-  arrival_time: string;
-  number_of_available_seats: number;
-  fare: string;
-  boarding_points: BoardingPoint[];
-  seats: string[];
-  seat_types: SeatType[];
-  number_of_window_seats: number;
-  last_booking: number;
-  amenities: string[];
-  origin_city_id: number;
-  destination_city_id: number;
-  bus_capacity: number;
-  trip_id: number;
 }
 
 interface Payee {
@@ -80,7 +44,7 @@ export interface BusReservationModel {
   referral_code: string;
   residence: string;
   promo_code: string;
-  selected_bus: SelectedBus;
+  selected_bus: Schedule;
   payee: Payee;
   boarding_point: string;
   date_of_travel: string;
@@ -118,6 +82,7 @@ interface SeatTypes {
   fare: number;
   name: string;
   currency: string;
+  available_seat_ids: [];
 }
 
 export interface Schedule {
@@ -128,34 +93,36 @@ export interface Schedule {
   departure_date: string;
   bus_type_id: string;
   operator: ScheduleOperator;
-  is_express_travel: string;
+  is_express_travel: boolean;
   number_of_seats_booked: number;
   id: number;
   make: string;
   bus_model: string;
   route_id: number;
-  route_schedule_id: string;
+  route_schedule_id: number;
   route_schedule_code: string;
   departure_time: string;
   arrival_time: string;
   number_of_available_seats: number;
-  fare: number;
-  boarding_points: [];
+  fare: string;
+  boarding_points: BoardingPoint[];
   dropoff_points: [];
   seats: [];
-  seat_types: SeatTypes[];
+  seats_types: SeatTypes[];
   number_of_window_seats: number;
   last_booking: number;
   amenities: [];
-  origin_city_id: string;
-  destination_city_id: string;
+  origin_city_id: number;
+  destination_city_id: number;
   bus_capacity: number;
   trip_id: number;
   reporting_time: string;
+  route_name: string;
+  currencies: object;
 }
 
 export interface BusSchedule {
-  schedule: Schedule;
+  schedule: Schedule[];
 }
 
 export interface SchedulePayload {

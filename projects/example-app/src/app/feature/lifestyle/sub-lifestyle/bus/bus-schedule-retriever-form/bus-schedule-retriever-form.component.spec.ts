@@ -8,9 +8,8 @@ describe('BusScheduleRetrieverFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BusScheduleRetrieverFormComponent]
-    })
-    .compileComponents();
+      imports: [BusScheduleRetrieverFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BusScheduleRetrieverFormComponent);
     component = fixture.componentInstance;

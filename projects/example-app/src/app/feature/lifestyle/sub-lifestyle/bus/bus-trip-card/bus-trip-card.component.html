@@ -1,0 +1,53 @@
+<mat-card
+  appearance="raised"
+  class="cursor-pointer font-normal"
+  (click)="selectedBusTrip.emit(busTripCard())"
+  tabindex="0"
+  (keydown.enter)="selectedBusTrip.emit(busTripCard())"
+>
+  <mat-card-header class="mb-2 text-primary w-full md:justify-between">
+    <mat-card-title class="hidden md:block">
+      {{ busTripCard().operator.name }}
+    </mat-card-title>
+    <img
+      [ngSrc]="busTripCard().operator.logo"
+      alt="company-icon"
+      width="100"
+      height="100"
+      priority
+      class="h-8"
+    />
+  </mat-card-header>
+  <mat-card-content>
+    <section
+      class="flex flex-col md:flex-row md:justify-between w-full mb-2 md:items-center"
+    >
+      <div class="pr-5">
+        <p class="-mb-2.5">{{ busTripCard().from | titlecase }}</p>
+        <small class="text-secondary-system">{{
+          busTripCard().departure_time
+        }}</small>
+      </div>
+      <hr class="w-full px-2 bg-primary h-0.5 hidden md:block" />
+      <div class="h-8 bg-primary md:hidden w-0.5 ml-2 py-2"></div>
+      <div class="md:pl-5">
+        <p class="-mb-2.5">{{ busTripCard().to | titlecase }}</p>
+        <small class="text-secondary-system">{{
+          busTripCard().arrival_time
+        }}</small>
+      </div>
+    </section>
+    <section class="flex whitespace-nowrap">
+      <p class="text-secondary-system">Available seats:</p>
+      <p class="font-semibold text-primary px-1">
+        {{ busTripCard().number_of_available_seats }}
+      </p>
+    </section>
+    <section class="flex md:flex-row whitespace-nowrap">
+      <p class="text-secondary-system">Fare:</p>
+      <p class="text-primary font-semibold px-1">
+        {{ busTripCard().fare | currency: 'KES' }}
+      </p>
+    </section>
+  </mat-card-content>
+</mat-card>

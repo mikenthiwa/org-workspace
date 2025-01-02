@@ -8,9 +8,8 @@ describe('AccessLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccessLayoutComponent]
-    })
-    .compileComponents();
+      imports: [AccessLayoutComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AccessLayoutComponent);
     component = fixture.componentInstance;

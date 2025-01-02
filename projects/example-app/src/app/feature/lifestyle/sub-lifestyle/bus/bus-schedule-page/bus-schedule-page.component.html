@@ -1,0 +1,19 @@
+<section class="mb-5">
+  <h1 class="font-bold text-primary">Select Bus</h1>
+  <small class="font-bold text-secondary-system"
+    >Choose from the list of selected bus</small
+  >
+</section>
+@if (isLoading()) {
+  <div class="flex justify-center items-center h-64">
+    <mat-spinner diameter="28"></mat-spinner>
+  </div>
+}
+<div class="grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-4">
+  @for (schedule of schedules(); track schedule.id) {
+    <my-org-bus-trip-card
+      [busTripCard]="schedule"
+      (selectedBusTrip)="selectBusTrip($event)"
+    />
+  }
+</div>

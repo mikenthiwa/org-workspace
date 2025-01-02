@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
@@ -17,9 +17,10 @@ import { environment } from '../../../../environments/environment';
 })
 export class BusService {
   apiUrl = environment.apiUrl;
-  busReservation = signal<BusReservationModel>({
-    booking_channel: 'web',
-  } as BusReservationModel);
+  busReservation: WritableSignal<BusReservationModel> =
+    signal<BusReservationModel>({
+      booking_channel: 'web',
+    } as BusReservationModel);
 
   private http = inject(HttpClient);
 
@@ -30,8 +31,7 @@ export class BusService {
       .pipe(map(({ data }) => data.all_cities));
   }
 
-  getBusSchedule(payload: SchedulePayload): Observable<Schedule> {
-    console.log('payload', payload);
+  getBusSchedule(payload: SchedulePayload): Observable<Schedule[]> {
     const url = `${this.apiUrl}buses`;
     const params = new HttpParams()
       .set('leaving_from', payload.leaving_from)

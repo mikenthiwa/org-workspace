@@ -22,6 +22,7 @@ module.exports = {
           98: '#f9f9ff',
           99: '#fdfbff',
           100: '#ffffff',
+          system: 'var(--mat-sys-secondary)',
         },
         neutral: {
           0: '#000000',
@@ -69,6 +70,14 @@ module.exports = {
           99: '#fdfbff',
           100: '#ffffff',
         },
+      },
+      boxShadow: {
+        0: 'var(--mat-sys-level0)',
+        1: 'var(--mat-sys-level1)',
+        2: 'var(--mat-sys-level2)',
+        3: 'var(--mat-sys-level3)',
+        4: 'var(--mat-sys-level4)',
+        5: 'var(--mat-sys-level5)',
       },
     },
   },

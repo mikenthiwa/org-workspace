@@ -8,9 +8,8 @@ describe('TripTypeToggleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TripTypeToggleComponent]
-    })
-    .compileComponents();
+      imports: [TripTypeToggleComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TripTypeToggleComponent);
     component = fixture.componentInstance;

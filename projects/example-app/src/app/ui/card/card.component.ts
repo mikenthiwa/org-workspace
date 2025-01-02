@@ -7,7 +7,12 @@ import {
 import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { FeatureModel } from '../model/lifestyle.model';
+
+interface CardDetails {
+  label: string;
+  icon: string;
+  route: string;
+}
 
 @Component({
   selector: 'my-org-card',
@@ -17,5 +22,5 @@ import { FeatureModel } from '../model/lifestyle.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent {
-  cardDetail: InputSignal<FeatureModel> = input.required<FeatureModel>();
+  cardDetail: InputSignal<CardDetails> = input.required<CardDetails>();
 }

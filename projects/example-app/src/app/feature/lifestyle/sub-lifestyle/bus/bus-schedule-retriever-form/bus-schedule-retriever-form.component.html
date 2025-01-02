@@ -1,74 +1,94 @@
-<form [formGroup]="busScheduleRetrievalForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<form
+  [formGroup]="busScheduleRetrievalForm"
+  class="grid grid-cols-1 md:grid-cols-2 gap-4"
+>
+  <mat-form-field appearance="outline">
+    <mat-label>From</mat-label>
+    <input
+      type="text"
+      placeholder="From"
+      aria-label="From"
+      matInput
+      formControlName="leaving_from"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      @for (city of filteredOptions(); track city) {
+        <mat-option [value]="city.name">{{ city.name }}</mat-option>
+      }
+    </mat-autocomplete>
+    @if (busScheduleRetrievalForm.get('leaving_from')?.hasError('required')) {
+      <mat-error>City is required</mat-error>
+    }
+  </mat-form-field>
 
   <mat-form-field appearance="outline">
-      <mat-label>From</mat-label>
-      <input
-        type="text"
-        placeholder="From"
-        aria-label="From"
-        matInput
-        formControlName="leaving_from"
-        [matAutocomplete]="auto"
-      >
-      <mat-autocomplete #auto="matAutocomplete">
-        @for(city of filteredOptions(); track city){
-          <mat-option [value]="city.name">{{ city.name }}</mat-option>
-        }
-      </mat-autocomplete>
-      @if (busScheduleRetrievalForm.get('leaving_from')?.hasError('required')) {
-        <mat-error>City is required</mat-error>
+    <mat-label>to</mat-label>
+    <input
+      type="text"
+      placeholder="to"
+      aria-label="to"
+      matInput
+      formControlName="going_to"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      @for (city of filteredOptions(); track city) {
+        <mat-option [value]="city.name">{{ city.name }}</mat-option>
       }
-    </mat-form-field>
+    </mat-autocomplete>
+    @if (busScheduleRetrievalForm.get('going_to')?.hasError('required')) {
+      <mat-error>City is required</mat-error>
+    }
+  </mat-form-field>
 
   <mat-form-field appearance="outline">
-      <mat-label>to</mat-label>
-      <input
-        type="text"
-        placeholder="to"
-        aria-label="to"
-        matInput
-        formControlName="going_to"
-        [matAutocomplete]="auto"
-      >
-      <mat-autocomplete  #auto="matAutocomplete" >
-        @for(city of filteredOptions(); track city){
-          <mat-option [value]="city.name">{{ city.name }}</mat-option>
-        }
-      </mat-autocomplete>
-      @if (busScheduleRetrievalForm.get('going_to')?.hasError('required')) {
-        <mat-error>City is required</mat-error>
-      }
-    </mat-form-field>
-
-  <mat-form-field appearance="outline">
-      <mat-label>Departure Date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="departure_on" readonly>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      @if (busScheduleRetrievalForm.get('departure_on')?.hasError('required')) {
-        <mat-error>Departure Date is required</mat-error>
-      }
-    </mat-form-field>
+    <mat-label>Departure Date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      formControlName="departure_on"
+      readonly
+    />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    @if (busScheduleRetrievalForm.get('departure_on')?.hasError('required')) {
+      <mat-error>Departure Date is required</mat-error>
+    }
+  </mat-form-field>
 
   @if (tripType() === 'return') {
     <mat-form-field appearance="outline">
       <mat-label>Return Date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="return_on" readonly>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="return_on"
+        readonly
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       @if (busScheduleRetrievalForm.get('return_on')?.hasError('required')) {
         <mat-error>Return Date is required</mat-error>
       }
     </mat-form-field>
   }
-
 </form>
 
-<button type="button" mat-flat-button class="mt-5 w-full" [disabled]="busScheduleRetrievalForm.invalid || isLoading()" (click)="submitForm.emit(busScheduleRetrievalForm.value)">
+<button
+  type="button"
+  mat-flat-button
+  class="mt-5 w-full"
+  [disabled]="busScheduleRetrievalForm.invalid || isLoading()"
+  (click)="submitForm.emit(busScheduleRetrievalForm.value)"
+>
   Search
   <mat-icon iconPositionEnd class="icon">
     @if (isLoading()) {
-      <mat-spinner  diameter="18"></mat-spinner>
+      <mat-spinner diameter="18"></mat-spinner>
     }
   </mat-icon>
 </button>

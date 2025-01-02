@@ -1,17 +1,19 @@
 <div class="py-16 px-10 shadow-md rounded-lg border-2">
-  <p class="text-secondary-50" >WELCOME TO</p>
-  <h1 class="text-primary-50 mb-5">Inua Mkulima - <br> <span>Subsidy Program</span></h1>
+  <p class="text-secondary-50">WELCOME TO</p>
+  <h1 class="text-primary-50 mb-5">
+    Inua Mkulima - <br />
+    <span>Subsidy Program</span>
+  </h1>
 
   <div class="flex flex-col">
-    <small class="text-secondary-50 font-bold">{{ detail().title}}</small>
+    <small class="text-secondary-50 font-bold">{{ detail().title }}</small>
     <mat-form-field appearance="fill">
       <mat-label>{{ detail().label }}</mat-label>
-      <input matInput [(ngModel)]="formValue">
+      <input matInput [(ngModel)]="formValue" />
     </mat-form-field>
     <button mat-flat-button [disabled]="!formValue" (click)="onsubmit()">
       <mat-icon iconPositionEnd class="icon">chevron_right</mat-icon>
       <span>{{ detail().button }}</span>
     </button>
   </div>
-
 </div>

@@ -4,8 +4,8 @@ import { CanActivateFn } from '@angular/router';
 import { featureFlagGuard } from './feature-flag.guard';
 
 describe('featureFlagGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => featureFlagGuard(...guardParameters));
+  const executeGuard: CanActivateFn = (...guardParameters) =>
+    TestBed.runInInjectionContext(() => featureFlagGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
