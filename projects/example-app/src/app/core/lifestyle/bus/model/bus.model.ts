@@ -1,3 +1,5 @@
+import { SeatModel } from './seat.model';
+
 interface Operator {
   booked_seat_session_id: string;
   alias: string;
@@ -107,7 +109,7 @@ export interface Schedule {
   fare: string;
   boarding_points: BoardingPoint[];
   dropoff_points: [];
-  seats: [];
+  seats: SeatModel[];
   seats_types: SeatTypes[];
   number_of_window_seats: number;
   last_booking: number;

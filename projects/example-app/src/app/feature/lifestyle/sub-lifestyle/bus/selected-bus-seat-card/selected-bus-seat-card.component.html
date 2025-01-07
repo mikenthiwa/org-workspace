@@ -1,0 +1,59 @@
+<div class="px-4 py-2 border-l-2">
+  <div class="">
+    <!--    <h1 class="text-primary font-bold">Selected seats</h1>-->
+    <div class="flex flex-col">
+      <p class="text-secondary-system font-semibold mb-1 whitespace-nowrap">
+        Passengers:<span class="text-primary">
+          {{ selectedSeats().length }}
+        </span>
+      </p>
+      <p class="text-secondary-system font-bold mb-1">
+        Total:
+        <span class="text-primary">{{ totalFare() | currency: 'KES' }}</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="pt-1 pb-5">
+    <mat-divider class="w-full text-primary" />
+  </div>
+
+  <div>
+    @for (seat of selectedSeats(); track seat.id) {
+      <div class="flex flex-col">
+        <div class="flex mb-1 items-center">
+          <small class="text-secondary-system pr-1 font-bold whitespace-nowrap"
+            >Seat no:</small
+          >
+          <small class="text-primary font-bold">{{ seat.id }}</small>
+        </div>
+        <div class="flex mb-1">
+          <small class="text-secondary-system pr-1 font-bold whitespace-nowrap"
+            >Seat type:</small
+          >
+          <small class="text-primary font-bold">{{
+            seat.type | titlecase
+          }}</small>
+        </div>
+        <div class="flex mb-1">
+          <small class="text-secondary-system pr-1 font-bold">Fare:</small>
+          <small class="text-primary font-bold">{{
+            (seat.fare ? seat.fare.normal : seat.fare) | currency: 'KES'
+          }}</small>
+        </div>
+      </div>
+      <div class="mb-5">
+        <mat-divider class="w-full text-primary" />
+      </div>
+    }
+  </div>
+
+  <button
+    mat-flat-button
+    class="bg-primary mt-2"
+    [disabled]="selectedSeats().length === 0"
+    (click)="continue.emit()"
+  >
+    Continue
+  </button>
+</div>

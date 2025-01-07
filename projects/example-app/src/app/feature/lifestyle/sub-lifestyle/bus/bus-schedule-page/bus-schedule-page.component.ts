@@ -15,6 +15,7 @@ import {
 import { BusTripCardComponent } from '../bus-trip-card/bus-trip-card.component';
 import { BusService } from '../../../../../core/lifestyle/bus/bus.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { SeatsPayloadModel } from '../../../../../core/lifestyle/bus/model/available-seats.model';
 
 @Component({
   selector: 'my-org-bus-schedule-page',
@@ -54,7 +55,23 @@ export class BusSchedulePageComponent implements OnInit {
         selected_bus: schedule,
       })
     );
-    this.router.navigate(['/lifestyle/bus/seat-selection']);
+    const availableSeatsPayload: SeatsPayloadModel = {
+      from: schedule.from,
+      to: schedule.to,
+      bus_id: schedule.id,
+      start_point: schedule.origin_city_id,
+      alias: schedule.operator.alias,
+      date: schedule.departure_date,
+      fare: schedule.fare,
+      end_point: schedule.destination_city_id,
+      rsc_id: schedule.route_schedule_id,
+      fleet_registration_id: schedule.id,
+    };
+    const url = this.router.createUrlTree(['/lifestyle/bus/seat-selection'], {
+      relativeTo: this.route,
+      queryParams: availableSeatsPayload,
+    });
+    this.router.navigateByUrl(url);
   }
 
   fetchBusSchedule(payload: SchedulePayload): void {

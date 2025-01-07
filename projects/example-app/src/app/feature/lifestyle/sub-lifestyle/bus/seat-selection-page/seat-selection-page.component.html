@@ -1,1 +1,22 @@
-<p>seat-selection-page works!</p>
+<my-org-bus-header
+  [headerDetail]="headerDetails()"
+/>
+<div class="flex justify-between">
+  <section class="relative">
+    @if (seatResources.hasValue()) {
+      <my-org-bus-seats [seats]="seatResources.value()!" [(selectedSeats)]="selectedSeats" />
+    } @else if (seatResources.status() === status.Error) {
+      <span>The request failed. Reason</span>
+      <button (click)="seatResources.reload()">Retry</button>
+    } @else {
+      <div class="absolute left-8 md:left-20 top-20">
+        <mat-spinner mode="indeterminate" diameter="28" />
+      </div>
+    }
+  </section>
+  <section class="">
+    <my-org-selected-bus-seat-card [selectedSeats]="selectedSeats()" (continue)="reserveSelectedSeats()" />
+  </section>
+  <div></div>
+
+</div>
