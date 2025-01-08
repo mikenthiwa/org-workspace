@@ -3,4 +3,5 @@ export interface FeatureModel {
   icon: string;
   route: string;
   featureName: string;
+  isFeatureEnabled: boolean;
 }

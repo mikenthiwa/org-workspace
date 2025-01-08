@@ -1,7 +1,10 @@
 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
   @for (feature of features(); track feature) {
-    <div class="w-full px-5">
-      <my-org-card [cardDetail]="feature" />
-    </div>
+    @if (feature.isFeatureEnabled) {
+      <div class="w-full px-5">
+        <my-org-card [cardDetail]="feature" />
+      </div>
+    }
+
   }
 </div>

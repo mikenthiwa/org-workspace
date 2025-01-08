@@ -22,7 +22,6 @@
             "index": "projects/example-app/src/index.html",
             "browser": "projects/example-app/src/main.ts",
             "polyfills": [
-              "zone.js"
             ],
             "tsConfig": "projects/example-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",

@@ -6,7 +6,7 @@ import {
   withEnabledBlockingInitialNavigation,
   withInMemoryScrolling,
 } from '@angular/router';
-import { provideZoneChangeDetection } from '@angular/core';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { headersInterceptor } from './interceptors/headers.interceptor';
@@ -17,7 +17,6 @@ interface CoreOptions {
 
 export function provideCore({ routes }: CoreOptions) {
   return [
-    provideZoneChangeDetection({ eventCoalescing: true }),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([headersInterceptor])),
     provideRouter(
@@ -30,5 +29,6 @@ export function provideCore({ routes }: CoreOptions) {
         scrollPositionRestoration: 'enabled',
       })
     ),
+    provideExperimentalZonelessChangeDetection(),
   ];
 }

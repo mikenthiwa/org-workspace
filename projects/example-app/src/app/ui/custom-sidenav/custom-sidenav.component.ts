@@ -2,9 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   input,
+  InputSignal,
   output,
-  signal,
-  WritableSignal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
@@ -16,6 +15,7 @@ interface MenuItems {
   label: string;
   route: string;
   path: string;
+  isFeatureEnabled: boolean;
 }
 
 @Component({
@@ -34,31 +34,6 @@ interface MenuItems {
 export class CustomSidenavComponent {
   currentRoute = input<string>('');
   isCollapsed = input<boolean>();
-  menuItems: WritableSignal<MenuItems[]> = signal<MenuItems[]>([
-    {
-      icon: 'home',
-      label: 'Home',
-      route: '/home',
-      path: 'home',
-    },
-    {
-      icon: 'explore',
-      label: 'Explore',
-      route: '/lifestyle',
-      path: 'lifestyle',
-    },
-    {
-      icon: 'analytics',
-      label: 'Analytics',
-      route: '/analytics',
-      path: 'analytics',
-    },
-    {
-      icon: 'settings',
-      label: 'Settings',
-      route: '/settings',
-      path: 'settings',
-    },
-  ]);
+  menuItems: InputSignal<MenuItems[]> = input<MenuItems[]>([]);
   switchTab = output<string>();
 }

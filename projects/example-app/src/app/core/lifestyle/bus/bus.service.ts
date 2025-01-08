@@ -1,10 +1,4 @@
-import {
-  inject,
-  Injectable,
-  signal,
-  WritableSignal,
-  ResourceLoaderParams,
-} from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
@@ -22,7 +16,6 @@ import {
   AvailableSeatsApiResponse,
   SeatsPayloadModel,
 } from './model/available-seats.model';
-import { rxResource } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -35,14 +28,6 @@ export class BusService {
     } as BusReservationModel);
 
   private http = inject(HttpClient);
-
-  seatsResources = rxResource<AvailableSeats, SeatsPayloadModel>({
-    loader: (
-      params: ResourceLoaderParams<SeatsPayloadModel>
-    ): Observable<AvailableSeats> => {
-      return this.getSeats$(params.request);
-    },
-  });
 
   getCitiesInfo(): Observable<City[]> {
     const url = `${this.apiUrl}buses/cities/aliases`;

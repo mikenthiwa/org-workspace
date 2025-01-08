@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 
 type FeatureFlags = Record<string, boolean>;
 
@@ -6,9 +6,15 @@ type FeatureFlags = Record<string, boolean>;
   providedIn: 'root',
 })
 export class FeatureFlagService {
-  featureFlags: FeatureFlags = { lifeStyle: true };
+  featureFlags: WritableSignal<FeatureFlags> = signal({
+    lifestyle: true,
+    home: true,
+    analytics: true,
+    settings: true,
+    bus: true,
+  });
 
   isEnabled(feature: string): boolean {
-    return this.featureFlags[feature];
+    return this.featureFlags()[feature];
   }
 }

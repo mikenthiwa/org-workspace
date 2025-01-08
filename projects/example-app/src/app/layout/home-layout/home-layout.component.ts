@@ -5,6 +5,7 @@ import {
   signal,
   ViewChild,
   OnInit,
+  inject,
 } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgClass } from '@angular/common';
@@ -15,6 +16,15 @@ import { RouterOutlet, ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomSidenavComponent } from '../../ui/custom-sidenav/custom-sidenav.component';
+import { FeatureFlagService } from '../../core/feature-flag/feature-flag.service';
+
+interface MenuItems {
+  icon: string;
+  label: string;
+  route: string;
+  path: string;
+  isFeatureEnabled: boolean;
+}
 
 @Component({
   selector: 'my-org-home-layout',
@@ -33,10 +43,41 @@ import { CustomSidenavComponent } from '../../ui/custom-sidenav/custom-sidenav.c
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeLayoutComponent implements OnInit {
+  private featureFlagService: FeatureFlagService = inject(FeatureFlagService);
   currentRoute: WritableSignal<string> = signal<string>('');
   isCollapsed: WritableSignal<boolean> = signal<boolean>(false);
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
   isMobile: WritableSignal<boolean> = signal<boolean>(false);
+  menuItems: WritableSignal<MenuItems[]> = signal<MenuItems[]>([
+    {
+      icon: 'home',
+      label: 'Home',
+      route: '/home',
+      path: 'home',
+      isFeatureEnabled: this.featureFlagService.isEnabled('home'),
+    },
+    {
+      icon: 'explore',
+      label: 'Explore',
+      route: '/lifestyle',
+      path: 'lifestyle',
+      isFeatureEnabled: this.featureFlagService.isEnabled('lifestyle'),
+    },
+    {
+      icon: 'analytics',
+      label: 'Analytics',
+      route: '/analytics',
+      path: 'analytics',
+      isFeatureEnabled: this.featureFlagService.isEnabled('analytics'),
+    },
+    {
+      icon: 'settings',
+      label: 'Settings',
+      route: '/settings',
+      path: 'settings',
+      isFeatureEnabled: this.featureFlagService.isEnabled('settings'),
+    },
+  ]);
 
   constructor(
     private route: ActivatedRoute,
