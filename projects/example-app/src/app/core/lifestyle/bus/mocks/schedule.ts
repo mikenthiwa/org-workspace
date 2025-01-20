@@ -1,4 +1,4 @@
-import { Schedule } from '../model/bus.model';
+import { Schedule } from '../../../../model/bus.model';
 
 export const schedule: Schedule = {
   is_shuttle: false,

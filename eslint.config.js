@@ -97,6 +97,12 @@ module.exports = tseslint.config(
           pattern: 'projects/**/src/lib',
           capture: ['lib'],
         },
+        {
+          type: 'model',
+          pattern: 'model',
+          basePattern: 'projects/**/src/app',
+          baseCapture: ['app'],
+        },
       ],
     },
     rules: {
@@ -181,6 +187,9 @@ module.exports = tseslint.config(
                   { app: '${from.app}', feature: '!${from.feature}' },
                 ],
               ],
+            },
+            {
+              from: ['model'],
             },
             {
               from: ['lib-api'],

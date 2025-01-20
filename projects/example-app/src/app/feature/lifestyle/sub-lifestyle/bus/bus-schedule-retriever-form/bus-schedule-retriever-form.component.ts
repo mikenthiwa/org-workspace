@@ -29,10 +29,7 @@ import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 
-import {
-  City,
-  SchedulePayload,
-} from '../../../../../core/lifestyle/bus/model/bus.model';
+import { City, SchedulePayload } from '../../../../../model/bus.model';
 
 const moment = _rollupMoment || _moment;
 

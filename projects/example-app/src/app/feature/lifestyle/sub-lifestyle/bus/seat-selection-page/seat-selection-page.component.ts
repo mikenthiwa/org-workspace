@@ -14,14 +14,14 @@ import { ActivatedRoute } from '@angular/router';
 import {
   AvailableSeats,
   SeatsPayloadModel,
-} from '../../../../../core/lifestyle/bus/model/available-seats.model';
+} from '../../../../../model/available-seats.model';
 import { Observable } from 'rxjs';
 import { BusSeatsComponent } from '../bus-seats/bus-seats.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { BusHeaderComponent } from '../bus-header/bus-header.component';
 import { SelectedBusSeatCardComponent } from '../selected-bus-seat-card/selected-bus-seat-card.component';
-import { SeatModel } from '../../../../../core/lifestyle/bus/model/seat.model';
-import { BusHeaderModel } from '../../../../../core/lifestyle/bus/model/bus-header.model';
+import { SeatModel } from '../../../../../model/seat.model';
+import { BusHeaderModel } from '../../../../../model/bus-header.model';
 
 @Component({
   selector: 'my-org-seat-selection-page',

@@ -6,7 +6,7 @@ import {
   InputSignal,
   output,
 } from '@angular/core';
-import { SeatModel } from '../../../../../core/lifestyle/bus/model/seat.model';
+import { SeatModel } from '../../../../../model/seat.model';
 import { MatDivider } from '@angular/material/divider';
 import { CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';

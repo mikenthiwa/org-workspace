@@ -8,14 +8,15 @@ import {
   BusSchedule,
   Schedule,
   SchedulePayload,
-} from './model/bus.model';
-import { CitiesApiResponse, City } from './model/bus.model';
+} from '../../../model/bus.model';
+import { CitiesApiResponse, City } from '../../../model/bus.model';
 import { environment } from '../../../../environments/environment';
 import {
   AvailableSeats,
   AvailableSeatsApiResponse,
   SeatsPayloadModel,
-} from './model/available-seats.model';
+} from '../../../model/available-seats.model';
+import { APIResponse } from '../../../model';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +44,7 @@ export class BusService {
       .set('going_to', payload.going_to)
       .set('departing_on', payload.departure_on);
     return this.http
-      .get<BusApiResponse<BusSchedule>>(url, {
+      .get<APIResponse<BusSchedule>>(url, {
         params: params,
       })
       .pipe(map(({ data }) => data.schedule));
@@ -62,7 +63,7 @@ export class BusService {
       .set('rsc_id', payload.rsc_id.toString());
 
     return this.http
-      .get<BusApiResponse<AvailableSeatsApiResponse>>(url, { params })
+      .get<APIResponse<AvailableSeatsApiResponse>>(url, { params })
       .pipe(map(({ data }) => data.available_seats));
   }
 }

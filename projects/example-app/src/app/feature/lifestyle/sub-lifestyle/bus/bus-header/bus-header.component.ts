@@ -5,7 +5,7 @@ import {
   InputSignal,
 } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
-import { BusHeaderModel } from '../../../../../core/lifestyle/bus/model/bus-header.model';
+import { BusHeaderModel } from '../../../../../model/bus-header.model';
 import { TitleCasePipe } from '@angular/common';
 
 @Component({

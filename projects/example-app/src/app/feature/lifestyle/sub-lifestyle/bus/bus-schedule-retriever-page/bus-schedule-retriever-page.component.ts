@@ -13,7 +13,7 @@ import {
   City,
   Schedule,
   SchedulePayload,
-} from '../../../../../core/lifestyle/bus/model/bus.model';
+} from '../../../../../model/bus.model';
 import { TripTypeToggleComponent } from '../trip-type-toggle/trip-type-toggle.component';
 import { BusScheduleRetrieverFormComponent } from '../bus-schedule-retriever-form/bus-schedule-retriever-form.component';
 import moment from 'moment';

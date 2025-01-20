@@ -11,11 +11,11 @@ import {
   BusReservationModel,
   Schedule,
   SchedulePayload,
-} from '../../../../../core/lifestyle/bus/model/bus.model';
+} from '../../../../../model/bus.model';
 import { BusTripCardComponent } from '../bus-trip-card/bus-trip-card.component';
 import { BusService } from '../../../../../core/lifestyle/bus/bus.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { SeatsPayloadModel } from '../../../../../core/lifestyle/bus/model/available-seats.model';
+import { SeatsPayloadModel } from '../../../../../model/available-seats.model';
 
 @Component({
   selector: 'my-org-bus-schedule-page',

@@ -7,10 +7,10 @@ import {
   ModelSignal,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { AvailableSeats } from '../../../../../core/lifestyle/bus/model/available-seats.model';
+import { AvailableSeats } from '../../../../../model/available-seats.model';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CommonModule } from '@angular/common';
-import { SeatModel } from '../../../../../core/lifestyle/bus/model/seat.model';
+import { SeatModel } from '../../../../../model/seat.model';
 
 @Component({
   selector: 'my-org-bus-seats',

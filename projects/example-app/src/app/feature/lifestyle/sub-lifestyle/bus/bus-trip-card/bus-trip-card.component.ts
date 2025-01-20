@@ -7,7 +7,7 @@ import {
   OutputEmitterRef,
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { Schedule } from '../../../../../core/lifestyle/bus/model/bus.model';
+import { Schedule } from '../../../../../model/bus.model';
 import { CurrencyPipe, NgOptimizedImage, TitleCasePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
