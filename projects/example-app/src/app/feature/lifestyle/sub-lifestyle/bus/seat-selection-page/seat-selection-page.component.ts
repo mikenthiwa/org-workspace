@@ -3,7 +3,6 @@ import {
   Component,
   inject,
   ResourceLoaderParams,
-  ResourceRef,
   ResourceStatus,
   signal,
   WritableSignal,
@@ -50,10 +49,7 @@ export class SeatSelectionPageComponent {
     },
   });
 
-  seatResources: ResourceRef<AvailableSeats> = rxResource<
-    AvailableSeats,
-    SeatsPayloadModel
-  >({
+  seatResources = rxResource<AvailableSeats, SeatsPayloadModel>({
     request: (): SeatsPayloadModel =>
       this.route.snapshot.queryParams as SeatsPayloadModel,
     loader: ({
