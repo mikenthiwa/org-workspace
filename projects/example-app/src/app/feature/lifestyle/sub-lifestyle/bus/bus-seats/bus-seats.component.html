@@ -1,31 +1,35 @@
-  <div class="border rounded-lg px-1 md:px-5 shadow-4">
-    @for (row of seats().seats; track row) {
-      <div class="flex">
-        @for (column of row; track column) {
-          @if (column.type === 'passenger') {
-            <div class="p-2">
-              <mat-icon
-                class=""
-                [ngClass]="{
-                  'text-primary cursor-pointer shadow-sm hover:shadow-lg active:scale-150': column.status === 'available',
-                  'text-secondary-system': column.status === 'booked',
-                  'scale-150': isSelected(column)
-                  }
+<div class="border rounded-lg px-1 md:px-5 shadow-4">
+  @for (row of seats().seats; track row) {
+    <div class="flex">
+      @for (column of row; track column) {
+        @if (column.type === 'passenger') {
+          <div class="p-2">
+            <mat-icon
+              class=""
+              [ngClass]="{
+                'text-primary cursor-pointer shadow-sm hover:shadow-lg active:scale-150':
+                  column.status === 'available',
+                'text-secondary-system': column.status === 'booked',
+                'scale-150': isSelected(column),
+              }"
+              (click)="column.status === 'available' && onSelectSeat(column)"
+              >chair</mat-icon
+            >
+            <p
+              class="text-center"
+              [ngClass]="
+                column.status === 'available'
+                  ? 'text-primary'
+                  : 'text-secondary-system'
               "
-                (click)="column.status ==='available' && onSelectSeat(column)"
-              >chair</mat-icon>
-              <p class="text-center" [ngClass]="column.status === 'available' ? 'text-primary': 'text-secondary-system'">
-                <small>{{ column.id }}</small>
-              </p>
-
-            </div>
-          } @else if (column.type === 'skip' && column.space_type === 'aisle') {
-            <div class="p-5"></div>
-          }
+            >
+              <small>{{ column.id }}</small>
+            </p>
+          </div>
+        } @else if (column.type === 'skip' && column.space_type === 'aisle') {
+          <div class="p-5"></div>
         }
-      </div>
-    }
-  </div>
-
-
-
+      }
+    </div>
+  }
+</div>

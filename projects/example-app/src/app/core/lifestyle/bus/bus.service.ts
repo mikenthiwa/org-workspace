@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
 import {
-  BusApiResponse,
   BusReservationModel,
   BusSchedule,
   Schedule,

@@ -34,9 +34,11 @@ html {
     )
   );
 
-  @include mat.divider-overrides((
-    color: var(--mat-sys-outline-variant),
-  ));
+  @include mat.divider-overrides(
+    (
+      color: var(--mat-sys-outline-variant),
+    )
+  );
 
   .mat-mdc-card.mat-elevation-z8 {
     @include mat.elevation(8);

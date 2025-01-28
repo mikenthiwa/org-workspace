@@ -103,6 +103,13 @@ module.exports = tseslint.config(
           basePattern: 'projects/**/src/app',
           baseCapture: ['app'],
         },
+        {
+          type: 'server',
+          mode: 'file',
+          pattern: '(main.server|server).ts',
+          basePattern: 'projects/**/src',
+          baseCapture: ['app'],
+        },
       ],
     },
     rules: {
@@ -121,6 +128,7 @@ module.exports = tseslint.config(
                 ['lib-api'],
                 ['env', { app: '${from.app}' }],
                 ['core', { app: '${from.app}' }],
+                ['model', {app: '${from.app}'}],
               ],
             },
             {
@@ -172,6 +180,7 @@ module.exports = tseslint.config(
                 ['ui', { app: '${from.app}' }],
                 ['pattern', { app: '${from.app}' }],
                 ['feature', { app: '${from.app}', feature: '${from.feature}' }],
+                ['model', { app: '${from.app}' }],  // Added model access
               ],
             },
             {
@@ -190,6 +199,10 @@ module.exports = tseslint.config(
             },
             {
               from: ['model'],
+
+              allow: [ 
+                []
+              ],
             },
             {
               from: ['lib-api'],
@@ -198,6 +211,15 @@ module.exports = tseslint.config(
             {
               from: ['lib'],
               allow: [['lib', { app: '${from.lib}' }]],
+            },
+            {
+              from: ['server'],
+              allow: [
+                ['lib-api'],
+                ['env', { app: '${from.app}' }],
+                ['app', { app: '${from.app}' }],
+                ['server', { app: '${from.app}' }],
+              ],
             },
           ],
         },

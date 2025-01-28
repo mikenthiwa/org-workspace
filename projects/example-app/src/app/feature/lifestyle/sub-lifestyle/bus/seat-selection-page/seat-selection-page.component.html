@@ -1,10 +1,11 @@
-<my-org-bus-header
-  [headerDetail]="headerDetails()"
-/>
+<my-org-bus-header [headerDetail]="headerDetails()" />
 <div class="flex justify-between">
   <section class="relative">
     @if (seatResources.hasValue()) {
-      <my-org-bus-seats [seats]="seatResources.value()!" [(selectedSeats)]="selectedSeats" />
+      <my-org-bus-seats
+        [seats]="seatResources.value()!"
+        [(selectedSeats)]="selectedSeats"
+      />
     } @else if (seatResources.status() === status.Error) {
       <span>The request failed. Reason</span>
       <button (click)="seatResources.reload()">Retry</button>
@@ -15,8 +16,10 @@
     }
   </section>
   <section class="">
-    <my-org-selected-bus-seat-card [selectedSeats]="selectedSeats()" (continue)="reserveSelectedSeats()" />
+    <my-org-selected-bus-seat-card
+      [selectedSeats]="selectedSeats()"
+      (continue)="reserveSelectedSeats()"
+    />
   </section>
   <div></div>
-
 </div>

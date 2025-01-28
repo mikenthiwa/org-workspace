@@ -14,7 +14,9 @@
     <span class="mx-2">-</span>
     <p class="text-primary font-semibold">{{ headerDetail().content['to'] }}</p>
   </div>
-  <p class="text-primary font-bold">{{ headerDetail().content.alias | titlecase }}</p>
+  <p class="text-primary font-bold">
+    {{ headerDetail().content.alias | titlecase }}
+  </p>
 
   <div class="my-5">
     <mat-divider class="w-full text-primary" />
