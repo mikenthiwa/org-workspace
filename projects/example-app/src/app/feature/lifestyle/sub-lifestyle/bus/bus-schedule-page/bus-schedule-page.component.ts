@@ -12,14 +12,29 @@ import {
   Schedule,
   SchedulePayload,
 } from '../../../../../model/bus.model';
-import { BusTripCardComponent } from '../bus-trip-card/bus-trip-card.component';
 import { BusService } from '../../../../../core/lifestyle/bus/bus.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SeatsPayloadModel } from '../../../../../model/available-seats.model';
+import { CardComponent } from '../../../../../ui/components/card/card.component';
+import { CurrencyPipe, NgOptimizedImage, TitleCasePipe } from '@angular/common';
+import {
+  MatCardContent,
+  MatCardHeader,
+  MatCardTitle,
+} from '@angular/material/card';
 
 @Component({
   selector: 'my-org-bus-schedule-page',
-  imports: [BusTripCardComponent, MatProgressSpinner],
+  imports: [
+    MatProgressSpinner,
+    CardComponent,
+    CurrencyPipe,
+    MatCardContent,
+    MatCardHeader,
+    MatCardTitle,
+    NgOptimizedImage,
+    TitleCasePipe,
+  ],
   templateUrl: './bus-schedule-page.component.html',
   styleUrl: './bus-schedule-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

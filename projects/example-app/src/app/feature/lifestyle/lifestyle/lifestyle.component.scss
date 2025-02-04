@@ -1,0 +1,10 @@
+@use '@angular/material' as mat;
+
+:host {
+  align-items: center !important;
+  //color: red;
+}
+
+@include mat.slide-toggle-overrides((
+  track-outline-color: orange,
+))

@@ -11,7 +11,7 @@ module.exports = tseslint.config(
         'error',
         {
           type: 'attribute',
-          prefix: 'my-org',
+          prefix: 'myOrg',
           style: 'camelCase',
         },
       ],

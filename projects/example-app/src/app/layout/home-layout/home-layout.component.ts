@@ -15,7 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet, ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CustomSidenavComponent } from '../../ui/custom-sidenav/custom-sidenav.component';
+import { CustomSidenavComponent } from '../../ui/components/custom-sidenav/custom-sidenav.component';
 import { FeatureFlagService } from '../../core/feature-flag/feature-flag.service';
 
 interface MenuItems {

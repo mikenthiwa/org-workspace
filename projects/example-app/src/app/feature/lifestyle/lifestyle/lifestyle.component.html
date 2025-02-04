@@ -1,8 +1,18 @@
 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
   @for (feature of features(); track feature) {
     @if (feature.isFeatureEnabled) {
-      <div class="w-full px-5">
-        <my-org-card [cardDetail]="feature" />
+      <div class="w-full">
+        <my-org-card (click)="navigate(feature)" class="text-primary">
+          <mat-card-header class="mb-5 flex justify-end">
+            <mat-slide-toggle labelPosition="before" class="text-primary" (click)="toggle($event)">Engage Agent</mat-slide-toggle>
+          </mat-card-header>
+          <mat-card-content class="text-center">
+            <p class="font-semibold">{{ feature.label }}</p>
+            <mat-icon color="red">
+              {{ feature.icon }}
+            </mat-icon>
+          </mat-card-content>
+        </my-org-card>
       </div>
     }
   }

@@ -5,15 +5,25 @@ import {
   WritableSignal,
   inject,
 } from '@angular/core';
-import { CardComponent } from '../../../ui/card/card.component';
 import { MatIconModule } from '@angular/material/icon';
 
 import { FeatureModel } from '../model/lifestyle.model';
 import { FeatureFlagService } from '../../../core/feature-flag/feature-flag.service';
+import { Router } from '@angular/router';
+import { CardComponent } from '../../../ui/components/card/card.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'my-org-lifestyle',
-  imports: [CardComponent, MatIconModule],
+  imports: [
+    MatIconModule,
+    CardComponent,
+    MatCardModule,
+    MatSlideToggleModule,
+    FormsModule,
+  ],
   templateUrl: './lifestyle.component.html',
   styleUrl: './lifestyle.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,4 +39,20 @@ export class LifestyleComponent {
       isFeatureEnabled: this.featureFlagService.isEnabled('bus'),
     },
   ]);
+
+  isAgentEngaged = signal<boolean>(false);
+
+  private route = inject(Router);
+
+  toggle(event: Event): void {
+    event.stopPropagation();
+    this.isAgentEngaged.set(!this.isAgentEngaged());
+    if (this.isAgentEngaged()) {
+      return;
+    }
+  }
+
+  navigate(feature: FeatureModel): void {
+    this.route.navigate([feature.route]);
+  }
 }
