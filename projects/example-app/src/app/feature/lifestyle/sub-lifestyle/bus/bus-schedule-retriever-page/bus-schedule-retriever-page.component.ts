@@ -16,7 +16,7 @@ import {
 } from '../../../../../model/bus.model';
 import { TripTypeToggleComponent } from '../trip-type-toggle/trip-type-toggle.component';
 import { BusScheduleRetrieverFormComponent } from '../bus-schedule-retriever-form/bus-schedule-retriever-form.component';
-import moment from 'moment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'my-org-bus-schedule-retriever-page',
@@ -24,6 +24,7 @@ import moment from 'moment';
   templateUrl: './bus-schedule-retriever-page.component.html',
   styleUrl: './bus-schedule-retriever-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DatePipe],
 })
 export class BusScheduleRetrieverPageComponent implements OnDestroy {
   tripType: WritableSignal<'one-way' | 'return'> = signal<'one-way' | 'return'>(
@@ -35,6 +36,7 @@ export class BusScheduleRetrieverPageComponent implements OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private ngUnsubscribe = new Subject<void>();
+  private readonly datePipe = inject(DatePipe);
 
   constructor() {
     this.cities.set(this.route.snapshot.data['cities']);
@@ -47,7 +49,9 @@ export class BusScheduleRetrieverPageComponent implements OnDestroy {
   schedulePayLoad(formValue: SchedulePayload): SchedulePayload {
     return {
       ...formValue,
-      departure_on: moment(formValue.departure_on).format('DD-MM-YYYY'),
+      // departure_on: moment(formValue.departure_on).format('DD-MM-YYYY'),
+      departure_on:
+        this.datePipe.transform(formValue.departure_on, 'dd-MM-yyyy') || '',
     };
   }
 

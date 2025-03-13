@@ -15,6 +15,7 @@ import {
   withEventReplay,
   withHttpTransferCacheOptions,
 } from '@angular/platform-browser';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 interface CoreOptions {
   routes: Routes;
@@ -42,5 +43,6 @@ export function provideCore({ routes }: CoreOptions) {
         includePostRequests: true,
       })
     ),
+    provideNativeDateAdapter(),
   ];
 }

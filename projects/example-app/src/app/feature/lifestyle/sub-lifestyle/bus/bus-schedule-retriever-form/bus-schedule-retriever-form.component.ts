@@ -25,25 +25,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
-import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
-import * as _moment from 'moment';
-import { default as _rollupMoment } from 'moment';
 
 import { City, SchedulePayload } from '../../../../../model/bus.model';
-
-const moment = _rollupMoment || _moment;
-
-const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'LL',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
 
 @Component({
   selector: 'my-org-bus-schedule-retriever-form',
@@ -58,7 +41,7 @@ const MY_FORMATS = {
     MatProgressSpinner,
     MatIconModule,
   ],
-  providers: [provideMomentDateAdapter(MY_FORMATS)],
+  providers: [],
   templateUrl: './bus-schedule-retriever-form.component.html',
   styleUrl: './bus-schedule-retriever-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -115,7 +98,7 @@ export class BusScheduleRetrieverFormComponent implements OnInit, OnChanges {
     this.busScheduleRetrievalForm = this.fb.group({
       leaving_from: ['', Validators.required],
       going_to: ['', Validators.required],
-      departure_on: [moment(''), Validators.required],
+      departure_on: ['', Validators.required],
     });
   }
 
