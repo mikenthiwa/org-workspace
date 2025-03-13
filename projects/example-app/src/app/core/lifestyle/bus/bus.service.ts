@@ -39,9 +39,9 @@ export class BusService {
   getBusSchedule(payload: SchedulePayload): Observable<Schedule[]> {
     const url = `${this.apiUrl}buses`;
     const params = new HttpParams()
-      .set('leaving_from', payload.leaving_from)
-      .set('going_to', payload.going_to)
-      .set('departing_on', payload.departure_on);
+      .set('leaving_from', payload.leaving_from || '')
+      .set('going_to', payload.going_to || '')
+      .set('departing_on', payload.departure_on || '');
     return this.http
       .get<APIResponse<BusSchedule>>(url, {
         params: params,
