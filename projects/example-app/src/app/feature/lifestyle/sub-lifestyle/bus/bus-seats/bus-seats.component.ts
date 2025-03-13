@@ -25,6 +25,7 @@ export class BusSeatsComponent {
 
   onSelectSeat(seat: SeatModel): void {
     this.selectedSeats.update((seats: SeatModel[]) => {
+      console.log('seats', seats);
       const index = seats.indexOf(seat);
       if (index > -1) {
         return seats.filter((s: SeatModel) => s !== seat);
