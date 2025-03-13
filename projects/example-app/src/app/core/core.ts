@@ -13,6 +13,7 @@ import { withFetch } from '@angular/common/http';
 import {
   provideClientHydration,
   withEventReplay,
+  withHttpTransferCacheOptions,
 } from '@angular/platform-browser';
 
 interface CoreOptions {
@@ -35,6 +36,11 @@ export function provideCore({ routes }: CoreOptions) {
       })
     ),
     provideExperimentalZonelessChangeDetection(),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(
+      withEventReplay(),
+      withHttpTransferCacheOptions({
+        includePostRequests: true,
+      })
+    ),
   ];
 }
