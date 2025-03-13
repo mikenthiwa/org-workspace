@@ -35,9 +35,7 @@
             ],
             "scripts": [],
             "server": "projects/example-app/src/main.server.ts",
-            "prerender": {
-              "discoverRoutes": false
-            },
+            "prerender": false,
             "ssr": {
               "entry": "projects/example-app/src/server.ts"
             }
