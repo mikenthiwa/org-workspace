@@ -5,7 +5,10 @@ import {
   withComponentInputBinding,
   withInMemoryScrolling,
 } from '@angular/router';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import {
+  isDevMode,
+  provideExperimentalZonelessChangeDetection,
+} from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { headersInterceptor } from './interceptors/headers.interceptor';
@@ -17,6 +20,7 @@ import {
   withIncrementalHydration,
 } from '@angular/platform-browser';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideServiceWorker } from '@angular/service-worker';
 
 interface CoreOptions {
   routes: Routes;
@@ -46,5 +50,9 @@ export function provideCore({ routes }: CoreOptions) {
     ),
     provideNativeDateAdapter(),
     // provideZoneChangeDetection({ eventCoalescing: true }),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ];
 }
