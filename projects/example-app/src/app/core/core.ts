@@ -14,6 +14,7 @@ import {
   provideClientHydration,
   withEventReplay,
   withHttpTransferCacheOptions,
+  withIncrementalHydration,
 } from '@angular/platform-browser';
 import { provideNativeDateAdapter } from '@angular/material/core';
 
@@ -24,8 +25,7 @@ interface CoreOptions {
 export function provideCore({ routes }: CoreOptions) {
   return [
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([headersInterceptor])),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withInterceptors([headersInterceptor]), withFetch()),
     provideRouter(
       routes,
       withRouterConfig({ onSameUrlNavigation: 'reload' }),
@@ -39,10 +39,12 @@ export function provideCore({ routes }: CoreOptions) {
     provideExperimentalZonelessChangeDetection(),
     provideClientHydration(
       withEventReplay(),
+      withIncrementalHydration(),
       withHttpTransferCacheOptions({
         includePostRequests: true,
       })
     ),
     provideNativeDateAdapter(),
+    // provideZoneChangeDetection({ eventCoalescing: true }),
   ];
 }

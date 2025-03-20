@@ -39,18 +39,7 @@ export class LifestyleComponent {
       isFeatureEnabled: this.featureFlagService.isEnabled('bus'),
     },
   ]);
-
-  isAgentEngaged = signal<boolean>(false);
-
   private route = inject(Router);
-
-  toggle(event: Event): void {
-    event.stopPropagation();
-    this.isAgentEngaged.set(!this.isAgentEngaged());
-    if (this.isAgentEngaged()) {
-      return;
-    }
-  }
 
   navigate(feature: FeatureModel): void {
     this.route.navigate([feature.route]);

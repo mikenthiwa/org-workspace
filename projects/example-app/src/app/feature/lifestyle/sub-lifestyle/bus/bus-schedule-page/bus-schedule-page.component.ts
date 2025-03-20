@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  WritableSignal,
-  signal,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   BusReservationModel,
@@ -22,6 +15,7 @@ import {
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'my-org-bus-schedule-page',
@@ -39,29 +33,16 @@ import {
   styleUrl: './bus-schedule-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BusSchedulePageComponent implements OnInit {
-  schedules: WritableSignal<Schedule[]> = signal<Schedule[]>([]);
-  isLoading: WritableSignal<boolean> = signal<boolean>(false);
+export class BusSchedulePageComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private busService = inject(BusService);
 
-  constructor() {
-    const state = this.router.getCurrentNavigation()?.extras.state;
-    if (state?.['schedule']) {
-      this.schedules.set(state?.['schedule']);
-    } else {
-      this.schedules.set([]);
-    }
-  }
-
-  ngOnInit() {
-    if (this.schedules().length === 0) {
-      this.route.queryParams.subscribe((params) => {
-        this.fetchBusSchedule(params as SchedulePayload);
-      });
-    }
-  }
+  scheduleResource = rxResource({
+    request: (): SchedulePayload =>
+      this.route.snapshot.queryParams as SchedulePayload,
+    loader: ({ request }) => this.busService.getBusSchedule(request),
+  });
 
   selectBusTrip(schedule: Schedule) {
     this.busService.busReservation.update(
@@ -87,13 +68,5 @@ export class BusSchedulePageComponent implements OnInit {
       queryParams: availableSeatsPayload,
     });
     this.router.navigateByUrl(url);
-  }
-
-  fetchBusSchedule(payload: SchedulePayload): void {
-    this.isLoading.set(true);
-    this.busService.getBusSchedule(payload).subscribe((schedule) => {
-      this.schedules.set(schedule);
-      this.isLoading.set(false);
-    });
   }
 }

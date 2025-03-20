@@ -4,63 +4,68 @@
     >Choose from the list of selected bus</small
   >
 </section>
-@if (isLoading()) {
+<div></div>
+@if (scheduleResource.isLoading()) {
   <div class="flex justify-center items-center h-64">
     <mat-spinner diameter="28" />
   </div>
-}
-<div class="grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-4">
-  @for (schedule of schedules(); track schedule.id) {
-<!--    <my-org-bus-trip-card-->
-<!--      [busTripCard]="schedule"-->
-<!--      (selectedBusTrip)="selectBusTrip($event)"-->
-<!--    />-->
-    <my-org-card (keydown.enter)="selectBusTrip(schedule)" (click)="selectBusTrip(schedule)">
-      <mat-card-header class="mb-2 text-primary w-full md:justify-between">
-        <mat-card-title class="hidden md:block">
-          {{ schedule.operator.name }}
-        </mat-card-title>
-        <img
-          [ngSrc]="schedule.operator.logo"
-          alt="company-icon"
-          width="124"
-          height="37"
-          priority
-          class="h-8 w-auto"
-        />
-      </mat-card-header>
-      <mat-card-content>
-        <section
-          class="flex flex-col md:flex-row md:justify-between w-full mb-2 md:items-center"
-        >
-          <div class="pr-5">
-            <p class="-mb-2.5">{{ schedule.from | titlecase }}</p>
-            <small class="text-secondary-system">{{
+} @else {
+  <div class="grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-4">
+    @for (schedule of scheduleResource.value(); track schedule.id) {
+      <!--    <my-org-bus-trip-card-->
+      <!--      [busTripCard]="schedule"-->
+      <!--      (selectedBusTrip)="selectBusTrip($event)"-->
+      <!--    />-->
+      <my-org-card
+        (keydown.enter)="selectBusTrip(schedule)"
+        (click)="selectBusTrip(schedule)"
+      >
+        <mat-card-header class="mb-2 text-primary w-full md:justify-between">
+          <mat-card-title class="hidden md:block">
+            {{ schedule.operator.name }}
+          </mat-card-title>
+          <img
+            [ngSrc]="schedule.operator.logo"
+            alt="company-icon"
+            width="124"
+            height="37"
+            priority
+            class="h-8 w-auto"
+          />
+        </mat-card-header>
+        <mat-card-content>
+          <section
+            class="flex flex-col md:flex-row md:justify-between w-full mb-2 md:items-center"
+          >
+            <div class="pr-5">
+              <p class="-mb-2.5">{{ schedule.from | titlecase }}</p>
+              <small class="text-secondary-system">{{
                 schedule.departure_time
               }}</small>
-          </div>
-          <hr class="w-full px-2 bg-primary h-0.5 hidden md:block" />
-          <div class="h-8 bg-primary md:hidden w-0.5 ml-2 py-2"></div>
-          <div class="md:pl-5">
-            <p class="-mb-2.5">{{ schedule.to | titlecase }}</p>
-            <small class="text-secondary-system">{{
+            </div>
+            <hr class="w-full px-2 bg-primary h-0.5 hidden md:block" />
+            <div class="h-8 bg-primary md:hidden w-0.5 ml-2 py-2"></div>
+            <div class="md:pl-5">
+              <p class="-mb-2.5">{{ schedule.to | titlecase }}</p>
+              <small class="text-secondary-system">{{
                 schedule.arrival_time
               }}</small>
-          </div>
-        </section>
-        <section class="flex whitespace-nowrap">
-          <p class="text-secondary-system">Available seats:</p>
-          <p class="font-semibold text-primary px-1">
-            {{ schedule.number_of_available_seats }}
-          </p>
-        </section>
-        <section class="flex md:flex-row whitespace-nowrap">
-          <p class="text-secondary-system">Fare:</p>
-          <p class="text-primary font-semibold px-1">
-            {{ schedule.fare | currency: 'KES' }}
-          </p>
-        </section>
-      </mat-card-content>
-    </my-org-card>
-  }
-</div>
+            </div>
+          </section>
+          <section class="flex whitespace-nowrap">
+            <p class="text-secondary-system">Available seats:</p>
+            <p class="font-semibold text-primary px-1">
+              {{ schedule.number_of_available_seats }}
+            </p>
+          </section>
+          <section class="flex md:flex-row whitespace-nowrap">
+            <p class="text-secondary-system">Fare:</p>
+            <p class="text-primary font-semibold px-1">
+              {{ schedule.fare | currency: 'KES' }}
+            </p>
+          </section>
+        </mat-card-content>
+      </my-org-card>
+    }
+  </div>
+}
