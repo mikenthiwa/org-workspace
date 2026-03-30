@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  ResourceLoaderParams,
   ResourceStatus,
   signal,
   WritableSignal,
@@ -14,7 +13,6 @@ import {
   AvailableSeats,
   SeatsPayloadModel,
 } from '../../../../../model/available-seats.model';
-import { Observable } from 'rxjs';
 import { BusSeatsComponent } from '../bus-seats/bus-seats.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { BusHeaderComponent } from '../bus-header/bus-header.component';
@@ -37,7 +35,6 @@ import { BusHeaderModel } from '../../../../../model/bus-header.model';
 export class SeatSelectionPageComponent {
   private route: ActivatedRoute = inject(ActivatedRoute);
   private busService: BusService = inject(BusService);
-  status: typeof ResourceStatus = ResourceStatus;
   selectedSeats = signal<SeatModel[]>([]);
   headerDetails: WritableSignal<BusHeaderModel> = signal<BusHeaderModel>({
     title: 'Bus Seat Selection',
@@ -50,12 +47,8 @@ export class SeatSelectionPageComponent {
   });
 
   seatResources = rxResource<AvailableSeats, SeatsPayloadModel>({
-    request: (): SeatsPayloadModel =>
-      this.route.snapshot.queryParams as SeatsPayloadModel,
-    loader: ({
-      request,
-    }: ResourceLoaderParams<SeatsPayloadModel>): Observable<AvailableSeats> =>
-      this.busService.getSeats$(request),
+    params: () => this.route.snapshot.queryParams as SeatsPayloadModel,
+    stream: (params) => this.busService.getSeats$(params),
   });
 
   reserveSelectedSeats(): void {

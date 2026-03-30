@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ResourceLoaderParams } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   BusReservationModel,
@@ -38,10 +38,9 @@ export class BusSchedulePageComponent {
   private route = inject(ActivatedRoute);
   private busService = inject(BusService);
 
-  scheduleResource = rxResource({
-    request: (): SchedulePayload =>
-      this.route.snapshot.queryParams as SchedulePayload,
-    loader: ({ request }) => this.busService.getBusSchedule(request),
+  scheduleResource = rxResource<Schedule[], SchedulePayload>({
+    params: () => this.route.snapshot.queryParams as SchedulePayload,
+    stream: (params) => this.busService.getBusSchedule(params),
   });
 
   selectBusTrip(schedule: Schedule) {
