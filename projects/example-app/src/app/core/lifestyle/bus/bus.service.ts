@@ -1,4 +1,4 @@
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, ResourceLoaderParams, signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
@@ -36,12 +36,12 @@ export class BusService {
       .pipe(map(({ data }) => data.all_cities));
   }
 
-  getBusSchedule(payload: SchedulePayload): Observable<Schedule[]> {
+  getBusSchedule(payload: ResourceLoaderParams<SchedulePayload>): Observable<Schedule[]> {
     const url = `${this.apiUrl}buses`;
     const params = new HttpParams()
-      .set('leaving_from', payload?.leaving_from || '')
-      .set('going_to', payload?.going_to || '')
-      .set('departing_on', payload?.departure_on || '');
+      .set('leaving_from', payload?.params.leaving_from || '')
+      .set('going_to', payload?.params.going_to || '')
+      .set('departing_on', payload?.params.departure_on || '');
     return this.http
       .get<APIResponse<BusSchedule>>(url, {
         params: params,
@@ -49,17 +49,17 @@ export class BusService {
       .pipe(map(({ data }) => data.schedule));
   }
 
-  getSeats$(payload: SeatsPayloadModel): Observable<AvailableSeats> {
+  getSeats$(payload: ResourceLoaderParams<SeatsPayloadModel>): Observable<AvailableSeats> {
     const url = `${this.apiUrl}buses/seats`;
     const params = new HttpParams()
-      .set('fleet_registration_id', payload.fleet_registration_id)
-      .set('bus_id', payload.bus_id.toString())
-      .set('start_point', payload.start_point.toString())
-      .set('alias', payload.alias)
-      .set('date', payload.date)
-      .set('fare', payload.fare)
-      .set('end_point', payload.end_point.toString())
-      .set('rsc_id', payload.rsc_id.toString());
+      .set('fleet_registration_id', payload.params.fleet_registration_id)
+      .set('bus_id', payload.params.bus_id.toString())
+      .set('start_point', payload.params.start_point.toString())
+      .set('alias', payload.params.alias)
+      .set('date', payload.params.date)
+      .set('fare', payload.params.fare)
+      .set('end_point', payload.params.end_point.toString())
+      .set('rsc_id', payload.params.rsc_id.toString());
 
     return this.http
       .get<APIResponse<AvailableSeatsApiResponse>>(url, { params })

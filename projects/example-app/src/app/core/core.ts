@@ -7,9 +7,8 @@ import {
 } from '@angular/router';
 import {
   isDevMode,
-  provideExperimentalZonelessChangeDetection,
+  provideZonelessChangeDetection
 } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { headersInterceptor } from './interceptors/headers.interceptor';
 import { withFetch } from '@angular/common/http';
@@ -28,7 +27,6 @@ interface CoreOptions {
 
 export function provideCore({ routes }: CoreOptions) {
   return [
-    provideAnimationsAsync(),
     provideHttpClient(withInterceptors([headersInterceptor]), withFetch()),
     provideRouter(
       routes,
@@ -40,7 +38,7 @@ export function provideCore({ routes }: CoreOptions) {
         scrollPositionRestoration: 'enabled',
       })
     ),
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     provideClientHydration(
       withEventReplay(),
       withIncrementalHydration(),
@@ -49,7 +47,6 @@ export function provideCore({ routes }: CoreOptions) {
       })
     ),
     provideNativeDateAdapter(),
-    // provideZoneChangeDetection({ eventCoalescing: true }),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',

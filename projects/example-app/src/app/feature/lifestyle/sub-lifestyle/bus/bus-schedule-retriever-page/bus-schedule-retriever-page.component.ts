@@ -4,7 +4,7 @@ import {
   WritableSignal,
   signal,
   inject,
-  OnDestroy,
+  OnDestroy, ResourceLoaderParams,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -46,13 +46,15 @@ export class BusScheduleRetrieverPageComponent implements OnDestroy {
     this.tripType.set(value);
   }
 
-  schedulePayLoad(formValue: SchedulePayload): SchedulePayload {
+  schedulePayLoad(formValue: SchedulePayload): ResourceLoaderParams<SchedulePayload> {
     return {
-      ...formValue,
-      // departure_on: moment(formValue.departure_on).format('DD-MM-YYYY'),
-      departure_on:
-        this.datePipe.transform(formValue.departure_on, 'dd-MM-yyyy') || '',
-    };
+      params: {
+        ...formValue,
+        // departure_on: moment(formValue.departure_on).format('DD-MM-YYYY'),
+        departure_on:
+          this.datePipe.transform(formValue.departure_on, 'dd-MM-yyyy') || '',
+      },
+    } as ResourceLoaderParams<SchedulePayload>;
   }
 
   fetchBusSchedule(formValue: SchedulePayload): void {
