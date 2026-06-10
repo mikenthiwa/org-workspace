@@ -1,59 +1,118 @@
-# MyOrgWorkspace
+# My Org Workspace
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+Angular workspace containing two applications:
 
-## Development server
+- `example-app`: the primary customer-facing app.
+- `back-office`: a secondary Angular app shell.
 
-To start a local development server, run:
+The main app is built with standalone Angular components, lazy routes, Angular
+Material, SCSS, Tailwind utilities, SSR support, service worker configuration,
+HTTP interceptors, and signal-based state in the feature layer.
 
-```bash
-ng serve
-```
+## Requirements
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Node.js LTS
+- Yarn
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Install dependencies with:
 
 ```bash
-ng generate --help
+yarn install
 ```
 
-## Building
+## Development
 
-To build the project run:
+Start the main app:
 
 ```bash
-ng build
+yarn start:example-app
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The dev server runs the `example-app` Angular project and serves it at
+`http://localhost:4200/` by default.
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+To serve another project directly:
 
 ```bash
-ng test
+yarn ng serve --project=back-office
 ```
 
-## Running end-to-end tests
+## Project Structure
 
-For end-to-end (e2e) testing, run:
+```text
+projects/
+  example-app/
+    src/app/
+      core/       App-wide providers, guards, interceptors, services
+      feature/    Lazy-loaded product features
+      layout/     Route shells and navigation layouts
+      model/      Shared TypeScript API and domain models
+      ui/         Reusable presentation components and directives
+  back-office/
+    src/app/      Secondary Angular application shell
+```
+
+Important root files:
+
+- `angular.json`: Angular project and target configuration.
+- `package.json`: scripts and dependencies.
+- `eslint.config.js`: Angular ESLint and dependency-boundary rules.
+- `tailwind.config.js`: Tailwind theme extensions.
+- `tsconfig.json`: shared TypeScript compiler settings.
+
+## Main App Routes
+
+`example-app` uses lazy route files under `projects/example-app/src/app/feature`.
+
+```text
+/                  -> redirects to /home
+/home              -> home feature
+/access/login      -> login feature
+/lifestyle         -> lifestyle feature
+/lifestyle/bus     -> bus booking feature
+```
+
+The bus booking flow includes schedule search, schedule results, and seat
+selection routes.
+
+## Scripts
 
 ```bash
-ng e2e
+yarn build          # Build example-app
+yarn test           # Run Angular unit tests
+yarn lint           # Run ESLint
+yarn format:test    # Check Prettier formatting
+yarn format:write   # Format project files
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Bundle and dependency analysis:
 
-## Additional Resources
+```bash
+yarn analyze
+yarn analyze:sme
+yarn analyze:deps
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Architecture Notes
+
+- `core` owns app-wide providers, HTTP setup, route guards, feature flags, and
+  API services.
+- `feature` owns routed business features and should keep feature-specific UI
+  close to the route that uses it.
+- `ui` contains reusable presentation components and directives.
+- `model` contains shared TypeScript types used across app layers.
+- Dependency boundaries are enforced in `eslint.config.js`; run `yarn lint`
+  before submitting changes.
+
+## Testing
+
+Unit tests are colocated with components and services as `.spec.ts` files.
+
+Run all configured Angular tests with:
+
+```bash
+yarn test
+```
+
+For meaningful behavior changes, add or update focused tests near the changed
+code.
