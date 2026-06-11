@@ -44,9 +44,9 @@
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
-    "angular-eslint": "19.2.1",
+    "angular-eslint": "22.0.0",
     "esbuild-visualizer": "^0.6.0",
-    "eslint": "^9.16.0",
+    "eslint": "^9.28.0",
     "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-boundaries": "^5.0.1",
     "http-server": "^14.1.1",
@@ -63,6 +63,6 @@
     "source-map-explorer": "^2.5.3",
     "tailwindcss": "^3.4.16",
     "typescript": "~6.0.3",
-    "typescript-eslint": "8.17.0"
+    "typescript-eslint": "^8.33.1"
   }
 }
