@@ -7,7 +7,6 @@ import {
 } from '@angular/router';
 import {
   isDevMode,
-  provideZonelessChangeDetection
 } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { headersInterceptor } from './interceptors/headers.interceptor';
@@ -38,7 +37,6 @@ export function provideCore({ routes }: CoreOptions) {
         scrollPositionRestoration: 'enabled',
       })
     ),
-    provideZonelessChangeDetection(),
     provideClientHydration(
       withEventReplay(),
       withIncrementalHydration(),
