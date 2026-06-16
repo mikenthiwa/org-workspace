@@ -3,7 +3,7 @@ import {
   Component,
   signal,
   WritableSignal,
-  inject,
+  inject, Signal,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -30,7 +30,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class LifestyleComponent {
   private featureFlagService: FeatureFlagService = inject(FeatureFlagService);
-  features: WritableSignal<FeatureModel[]> = signal<FeatureModel[]>([
+  features: Signal<FeatureModel[]> = signal<FeatureModel[]>([
     {
       featureName: 'Bus',
       label: 'Bus',
@@ -38,7 +38,7 @@ export class LifestyleComponent {
       route: '/lifestyle/bus',
       isFeatureEnabled: this.featureFlagService.isEnabled('bus'),
     },
-  ]);
+  ]).asReadonly();
   private route = inject(Router);
 
   navigate(feature: FeatureModel): void {

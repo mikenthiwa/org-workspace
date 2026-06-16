@@ -4,7 +4,7 @@ import {
   input,
   InputSignal,
   output,
-  OutputEmitterRef,
+  OutputEmitterRef, signal,
 } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,10 +35,10 @@ export class LoginFormComponent {
   });
 
   submitForm: OutputEmitterRef<string> = output<string>();
-  formValue = '';
+  formValue = signal('');
 
   onsubmit(): void {
-    this.submitForm.emit(this.formValue);
-    this.formValue = '';
+    this.submitForm.emit(this.formValue());
+    this.formValue.set('');
   }
 }

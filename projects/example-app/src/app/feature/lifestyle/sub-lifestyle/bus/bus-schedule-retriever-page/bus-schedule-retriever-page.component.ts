@@ -4,10 +4,9 @@ import {
   WritableSignal,
   signal,
   inject,
-  OnDestroy, ResourceLoaderParams,
+  DestroyRef,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
 import { BusService } from '../../../../../core/lifestyle/bus/bus.service';
 import {
   City,
@@ -17,6 +16,7 @@ import {
 import { TripTypeToggleComponent } from '../trip-type-toggle/trip-type-toggle.component';
 import { BusScheduleRetrieverFormComponent } from '../bus-schedule-retriever-form/bus-schedule-retriever-form.component';
 import { DatePipe } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'my-org-bus-schedule-retriever-page',
@@ -26,7 +26,7 @@ import { DatePipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DatePipe],
 })
-export class BusScheduleRetrieverPageComponent implements OnDestroy {
+export class BusScheduleRetrieverPageComponent {
   tripType: WritableSignal<'one-way' | 'return'> = signal<'one-way' | 'return'>(
     'one-way'
   );
@@ -35,8 +35,8 @@ export class BusScheduleRetrieverPageComponent implements OnDestroy {
   private busService = inject(BusService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private ngUnsubscribe = new Subject<void>();
   private readonly datePipe = inject(DatePipe);
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
     this.cities.set(this.route.snapshot.data['cities']);
@@ -46,22 +46,20 @@ export class BusScheduleRetrieverPageComponent implements OnDestroy {
     this.tripType.set(value);
   }
 
-  schedulePayLoad(formValue: SchedulePayload): ResourceLoaderParams<SchedulePayload> {
+  schedulePayLoad(formValue: SchedulePayload): SchedulePayload {
     return {
-      params: {
-        ...formValue,
-        // departure_on: moment(formValue.departure_on).format('DD-MM-YYYY'),
-        departure_on:
-          this.datePipe.transform(formValue.departure_on, 'dd-MM-yyyy') || '',
-      },
-    } as ResourceLoaderParams<SchedulePayload>;
+      ...formValue,
+      // departure_on: moment(formValue.departure_on).format('DD-MM-YYYY'),
+      departure_on:
+        this.datePipe.transform(formValue.departure_on, 'dd-MM-yyyy') || '',
+    };
   }
 
   fetchBusSchedule(formValue: SchedulePayload): void {
     this.isLoading.set(true);
     this.busService
       .getBusSchedule(this.schedulePayLoad(formValue))
-      .pipe(takeUntil(this.ngUnsubscribe))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((schedule: Schedule[]) => {
         this.isLoading.set(false);
         const urlTree = this.router.createUrlTree(['/lifestyle/bus/schedule'], {
@@ -70,10 +68,5 @@ export class BusScheduleRetrieverPageComponent implements OnDestroy {
         });
         this.router.navigateByUrl(urlTree, { state: { schedule: schedule } });
       });
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 }

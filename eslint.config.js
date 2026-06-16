@@ -87,17 +87,6 @@ module.exports = tseslint.config(
           baseCapture: ['app'],
         },
         {
-          type: 'lib-api',
-          mode: 'file',
-          pattern: 'projects/**/src/public-api.ts',
-          capture: ['lib'],
-        },
-        {
-          type: 'lib',
-          pattern: 'projects/**/src/lib',
-          capture: ['lib'],
-        },
-        {
           type: 'model',
           pattern: 'model',
           basePattern: 'projects/**/src/app',
@@ -197,13 +186,13 @@ module.exports = tseslint.config(
                 ],
               ],
             },
-            {
-              from: ['model'],
-
-              allow: [ 
-                []
-              ],
-            },
+            // {
+            //   from: ['model'],
+            //
+            //   allow: [
+            //     []
+            //   ],
+            // },
             {
               from: ['lib-api'],
               allow: [['lib', { app: '${from.lib}' }]],

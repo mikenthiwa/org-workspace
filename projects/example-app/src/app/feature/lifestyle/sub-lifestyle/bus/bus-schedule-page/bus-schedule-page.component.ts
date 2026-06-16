@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject, ResourceLoaderParams } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   BusReservationModel,
   Schedule,
@@ -15,7 +24,6 @@ import {
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
-import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'my-org-bus-schedule-page',
@@ -33,15 +41,24 @@ import { rxResource } from '@angular/core/rxjs-interop';
   styleUrl: './bus-schedule-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BusSchedulePageComponent {
+export class BusSchedulePageComponent implements OnInit {
+  isLoading = signal(false);
+  schedules = signal<Schedule[]>([]);
+
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private busService = inject(BusService);
+  private location = inject(Location);
+  private readonly destroyRef = inject(DestroyRef);
 
-  scheduleResource = rxResource<Schedule[], SchedulePayload>({
-    params: () => this.route.snapshot.queryParams as SchedulePayload,
-    stream: (params) => this.busService.getBusSchedule(params),
-  });
+  ngOnInit(): void {
+    const state = this.location.getState() as { schedule?: Schedule[] };
+    if (state && state.schedule) {
+      this.schedules.set(state.schedule);
+    } else {
+      this.fetchBusSchedule(this.route.snapshot.queryParams as SchedulePayload);
+    }
+  }
 
   selectBusTrip(schedule: Schedule) {
     this.busService.busReservation.update(
@@ -67,5 +84,14 @@ export class BusSchedulePageComponent {
       queryParams: availableSeatsPayload,
     });
     this.router.navigateByUrl(url);
+  }
+
+  fetchBusSchedule(params: SchedulePayload): void {
+    this.busService
+      .getBusSchedule(params)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((schedules: Schedule[]) => {
+        this.schedules.set(schedules);
+      });
   }
 }
