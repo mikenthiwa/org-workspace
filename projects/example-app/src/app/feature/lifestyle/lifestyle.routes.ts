@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { citiesResolver } from '../../core/lifestyle/bus/resolver/cities.resolver';
+import { citiesResolver } from './sub-lifestyle/bus/services/bus/resolver/cities.resolver';
+import { BusService } from './sub-lifestyle/bus/services/bus/bus.service';
 
 export default [
   {
@@ -18,6 +19,7 @@ export default [
           cities: citiesResolver,
         },
         loadChildren: () => import('./sub-lifestyle/bus/bus.routes'),
+        providers: [BusService]
       },
     ],
   },

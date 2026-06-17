@@ -6,7 +6,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { BusService } from '../../../../../core/lifestyle/bus/bus.service';
+import { BusService } from '../services/bus/bus.service';
 import { ActivatedRoute } from '@angular/router';
 import {
   AvailableSeats,

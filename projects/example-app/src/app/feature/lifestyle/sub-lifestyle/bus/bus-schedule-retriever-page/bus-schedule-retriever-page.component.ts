@@ -7,7 +7,7 @@ import {
   DestroyRef,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BusService } from '../../../../../core/lifestyle/bus/bus.service';
+import { BusService } from '../services/bus/bus.service';
 import {
   City,
   Schedule,

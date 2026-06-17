@@ -14,7 +14,7 @@ import {
   Schedule,
   SchedulePayload,
 } from '../../../../../model/bus.model';
-import { BusService } from '../../../../../core/lifestyle/bus/bus.service';
+import { BusService } from '../services/bus/bus.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SeatsPayloadModel } from '../../../../../model/available-seats.model';
 import { CardComponent } from '../../../../../ui/components/card/card.component';
