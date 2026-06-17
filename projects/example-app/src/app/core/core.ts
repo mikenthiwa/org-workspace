@@ -10,12 +10,10 @@ import {
 } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { headersInterceptor } from './interceptors/headers.interceptor';
-import { withFetch } from '@angular/common/http';
 import {
   provideClientHydration,
   withEventReplay,
   withHttpTransferCacheOptions,
-  withIncrementalHydration,
 } from '@angular/platform-browser';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -26,12 +24,11 @@ interface CoreOptions {
 
 export function provideCore({ routes }: CoreOptions) {
   return [
-    provideHttpClient(withInterceptors([headersInterceptor]), withFetch()),
+    provideHttpClient(withInterceptors([headersInterceptor])),
     provideRouter(
       routes,
       withRouterConfig({ onSameUrlNavigation: 'reload' }),
       withComponentInputBinding(),
-      // withEnabledBlockingInitialNavigation(),
       withInMemoryScrolling({
         anchorScrolling: 'enabled',
         scrollPositionRestoration: 'enabled',
@@ -39,7 +36,6 @@ export function provideCore({ routes }: CoreOptions) {
     ),
     provideClientHydration(
       withEventReplay(),
-      withIncrementalHydration(),
       withHttpTransferCacheOptions({
         includePostRequests: true,
       })
