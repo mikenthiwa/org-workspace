@@ -36,12 +36,12 @@ export class BusService {
       .pipe(map(({ data }) => data.all_cities));
   }
 
-  getBusSchedule(payload: ResourceLoaderParams<SchedulePayload>): Observable<Schedule[]> {
+  getBusSchedule(payload: SchedulePayload): Observable<Schedule[]> {
     const url = `${this.apiUrl}buses`;
     const params = new HttpParams()
-      .set('leaving_from', payload?.params.leaving_from || '')
-      .set('going_to', payload?.params.going_to || '')
-      .set('departing_on', payload?.params.departure_on || '');
+      .set('leaving_from', payload?.leaving_from || '')
+      .set('going_to', payload?.going_to || '')
+      .set('departing_on', payload?.departure_on || '');
     return this.http
       .get<APIResponse<BusSchedule>>(url, {
         params: params,

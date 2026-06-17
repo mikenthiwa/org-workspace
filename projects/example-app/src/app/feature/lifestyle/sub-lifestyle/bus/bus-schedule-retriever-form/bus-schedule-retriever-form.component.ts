@@ -46,7 +46,8 @@ import { City, SchedulePayload } from '../../../../../model/bus.model';
   styleUrl: './bus-schedule-retriever-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BusScheduleRetrieverFormComponent implements OnInit, OnChanges {
+export class BusScheduleRetrieverFormComponent
+  implements OnInit, OnChanges {
   tripType: InputSignal<'one-way' | 'return'> = input<'one-way' | 'return'>(
     'one-way'
   );

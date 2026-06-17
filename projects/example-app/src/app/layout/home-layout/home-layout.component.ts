@@ -79,15 +79,16 @@ export class HomeLayoutComponent implements OnInit {
     },
   ]);
 
-  constructor(
-    private route: ActivatedRoute,
-    private breakpointObserver: BreakpointObserver
-  ) {
+  private route = inject(ActivatedRoute);
+  private breakpointObserver = inject(BreakpointObserver);
+
+  constructor() {
     const [urlSegment] = this.route.snapshot.url;
     this.currentRoute.set(urlSegment?.path);
   }
 
   ngOnInit() {
+
     this.breakpointObserver
       .observe(['(max-width: 768px)'])
       .subscribe((screenSize) => {

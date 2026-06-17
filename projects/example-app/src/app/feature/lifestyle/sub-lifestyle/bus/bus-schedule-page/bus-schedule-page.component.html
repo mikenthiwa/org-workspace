@@ -5,13 +5,13 @@
   >
 </section>
 <div></div>
-@if (scheduleResource.isLoading()) {
+@if (isLoading()) {
   <div class="flex justify-center items-center h-64">
     <mat-spinner diameter="28" />
   </div>
 } @else {
   <div class="grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-4">
-    @for (schedule of scheduleResource.value(); track schedule.id) {
+    @for (schedule of schedules(); track schedule.id) {
       <!--    <my-org-bus-trip-card-->
       <!--      [busTripCard]="schedule"-->
       <!--      (selectedBusTrip)="selectBusTrip($event)"-->

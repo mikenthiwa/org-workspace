@@ -9,7 +9,7 @@
     [mode]="isMobile() ? 'over' : 'side'"
     [opened]="!isMobile()"
     class="pr-5 pl-2"
-    [ngClass]="isCollapsed() ? 'collapsed' : 'expanded'"
+    [ngClass]="{ collapsed: isCollapsed(), expanded: !isCollapsed() }"
   >
     <my-org-custom-sidenav
       [currentRoute]="currentRoute()"

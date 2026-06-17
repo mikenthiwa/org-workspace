@@ -1,11 +1,11 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, inject } from '@angular/core';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[myOrgCenterItem]',
 })
 export class CenterItemDirective {
-  constructor(private el: ElementRef) {
+  private el = inject(ElementRef);
+  constructor() {
     this.el.nativeElement.style.alignItems = 'center !important';
   }
 }
