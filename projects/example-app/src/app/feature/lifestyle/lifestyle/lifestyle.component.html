@@ -2,10 +2,10 @@
   @for (feature of features(); track feature) {
     @if (feature.isFeatureEnabled) {
       <div class="w-full">
-        <my-org-card (click)="navigate(feature)" class="text-primary">
+        <my-org-card (click)="navigate(feature)">
           <mat-card-content class="text-center">
             <p class="font-semibold">{{ feature.label }}</p>
-            <mat-icon color="red">
+            <mat-icon>
               {{ feature.icon }}
             </mat-icon>
           </mat-card-content>
