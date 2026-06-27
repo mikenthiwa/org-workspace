@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { AccessLayoutComponent } from './layout/access-layout/access-layout.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
-import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -33,7 +32,7 @@ export const routes: Routes = [
   {
     path: 'lifestyle',
     component: HomeLayoutComponent,
-    canActivate: [authGuard],
+    canActivate: [],
     children: [
       {
         path: '',

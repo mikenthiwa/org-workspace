@@ -1,8 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  WritableSignal,
-  signal,
   inject,
   OnInit,
   input,
@@ -10,6 +8,7 @@ import {
   SimpleChanges,
   OnChanges,
   output,
+  linkedSignal,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -46,8 +45,7 @@ import { City, SchedulePayload } from '../../../../../model/bus.model';
   styleUrl: './bus-schedule-retriever-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BusScheduleRetrieverFormComponent
-  implements OnInit, OnChanges {
+export class BusScheduleRetrieverFormComponent implements OnInit, OnChanges {
   tripType: InputSignal<'one-way' | 'return'> = input<'one-way' | 'return'>(
     'one-way'
   );
@@ -55,7 +53,7 @@ export class BusScheduleRetrieverFormComponent
   isLoading: InputSignal<boolean> = input<boolean>(false);
 
   submitForm = output<SchedulePayload>();
-  filteredOptions: WritableSignal<City[]> = signal([]);
+  filteredOptions = linkedSignal(() => this.cities());
 
   busScheduleRetrievalForm: FormGroup = new FormGroup({});
   private fb = inject(FormBuilder);
@@ -67,9 +65,6 @@ export class BusScheduleRetrieverFormComponent
   ngOnChanges(changes: SimpleChanges) {
     if ('tripType' in changes) {
       this.toggleTripType(changes['tripType'].currentValue);
-    }
-    if ('cities' in changes) {
-      this.filteredOptions.set(changes['cities'].currentValue);
     }
   }
 

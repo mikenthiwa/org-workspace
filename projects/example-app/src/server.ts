@@ -18,7 +18,7 @@ const commonEngine = new CommonEngine();
  *
  * Example:
  * ```ts
- * app.get('/api/**', (req, res) => {
+ * app.use('/api', (req, res) => {
  *   // Handle API request
  * });
  * ```
@@ -28,17 +28,16 @@ const commonEngine = new CommonEngine();
  * Serve static files from /browser
  */
 app.get(
-  '**',
+  /^\/.*\..*$/,
   express.static(browserDistFolder, {
     maxAge: '1y',
-    index: 'index.html',
   })
 );
 
 /**
  * Handle all other requests by rendering the Angular application.
  */
-app.get('**', (req, res, next) => {
+app.get(/.*/, (req, res, next) => {
   const { protocol, originalUrl, baseUrl, headers } = req;
 
   commonEngine

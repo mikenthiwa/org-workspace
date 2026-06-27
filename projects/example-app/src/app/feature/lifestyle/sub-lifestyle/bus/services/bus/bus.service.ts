@@ -1,4 +1,10 @@
-import { inject, Injectable, ResourceLoaderParams, signal, WritableSignal } from '@angular/core';
+import {
+  inject,
+  ResourceLoaderParams,
+  signal,
+  WritableSignal,
+  Service,
+} from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
@@ -7,19 +13,17 @@ import {
   BusSchedule,
   Schedule,
   SchedulePayload,
-} from '../../../model/bus.model';
-import { CitiesApiResponse, City } from '../../../model/bus.model';
-import { environment } from '../../../../environments/environment';
+} from '../../../../../../model/bus.model';
+import { CitiesApiResponse, City } from '../../../../../../model/bus.model';
+import { environment } from '../../../../../../../environments/environment';
 import {
   AvailableSeats,
   AvailableSeatsApiResponse,
   SeatsPayloadModel,
-} from '../../../model/available-seats.model';
-import { APIResponse } from '../../../model';
+} from '../../../../../../model/available-seats.model';
+import { APIResponse } from '../../../../../../model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service({autoProvided: false})
 export class BusService {
   apiUrl = environment.apiUrl;
   busReservation: WritableSignal<BusReservationModel> =

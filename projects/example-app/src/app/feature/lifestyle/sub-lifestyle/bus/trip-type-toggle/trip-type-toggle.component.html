@@ -5,7 +5,7 @@
     <div
       class="w-1/2 text-center py-2"
       (click)="toggleTripType.emit(type)"
-      [ngClass]="tripType() === type ? 'bg-primary text-secondary-100' : ''"
+      [ngClass]="{'bg-primary': tripType() === type}"
       (keydown.enter)="toggleTripType.emit(type)"
       tabindex="0"
     >
