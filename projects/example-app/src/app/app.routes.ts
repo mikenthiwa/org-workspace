@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AccessLayoutComponent } from './layout/access-layout/access-layout.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
+import { loadRemoteModule } from '@angular-architects/native-federation';
 
 export const routes: Routes = [
   {
@@ -39,5 +40,10 @@ export const routes: Routes = [
         loadChildren: () => import('./feature/lifestyle/lifestyle.routes'),
       },
     ],
+  },
+  {
+    path: 'back-office',
+    loadComponent: () =>
+      loadRemoteModule('back-office', './Component').then((m) => m.AppComponent),
   },
 ];

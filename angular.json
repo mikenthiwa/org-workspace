@@ -16,12 +16,69 @@
       "prefix": "my-org",
       "architect": {
         "build": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "cacheExternalArtifacts": true,
+            "ssr": true
+          },
+          "configurations": {
+            "production": {
+              "target": "example-app:esbuild:production"
+            },
+            "development": {
+              "target": "example-app:esbuild:development",
+              "dev": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "example-app:serve-original:development",
+            "rebuildDelay": 500,
+            "cacheExternalArtifacts": true,
+            "dev": true,
+            "devServer": true,
+            "port": 0
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/example-app/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/example-app/public"
+              }
+            ],
+            "styles": ["projects/example-app/src/styles.scss"],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/example-app/**/*.ts",
+              "projects/example-app/**/*.html"
+            ],
+            "eslintConfig": "projects/example-app/eslint.config.js"
+          }
+        },
+        "esbuild": {
           "builder": "@angular/build:application",
           "options": {
             "outputPath": "dist/example-app",
             "index": "projects/example-app/src/index.html",
             "browser": "projects/example-app/src/main.ts",
-            "polyfills": [],
+            "polyfills": ["es-module-shims"],
             "tsConfig": "projects/example-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -30,9 +87,7 @@
                 "input": "projects/example-app/public"
               }
             ],
-            "styles": [
-              "projects/example-app/src/styles.scss"
-            ],
+            "styles": ["projects/example-app/src/styles.scss"],
             "scripts": [],
             "server": "projects/example-app/src/main.server.ts",
             "prerender": {
@@ -40,6 +95,9 @@
             },
             "ssr": {
               "entry": "projects/example-app/src/server.ts"
+            },
+            "security": {
+              "allowedHosts": ["localhost"]
             }
           },
           "configurations": {
@@ -73,50 +131,19 @@
           },
           "defaultConfiguration": "production"
         },
-        "serve": {
+        "serve-original": {
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "example-app:build:production"
+              "buildTarget": "example-app:esbuild:production"
             },
             "development": {
-              "buildTarget": "example-app:build:development"
+              "buildTarget": "example-app:esbuild:development"
             }
           },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
+          "defaultConfiguration": "development",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "projects/example-app/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/example-app/public"
-              }
-            ],
-            "styles": [
-              "projects/example-app/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/example-app/**/*.ts",
-              "projects/example-app/**/*.html"
-            ],
-            "eslintConfig": "projects/example-app/eslint.config.js"
+            "port": 4200
           }
         }
       }
@@ -133,14 +160,68 @@
       "prefix": "my-org",
       "architect": {
         "build": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "cacheExternalArtifacts": true
+          },
+          "configurations": {
+            "production": {
+              "target": "back-office:esbuild:production"
+            },
+            "development": {
+              "target": "back-office:esbuild:development",
+              "dev": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "back-office:serve-original:development",
+            "rebuildDelay": 500,
+            "cacheExternalArtifacts": true,
+            "dev": true,
+            "devServer": true,
+            "port": 0
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/back-office/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/back-office/public"
+              }
+            ],
+            "styles": ["projects/back-office/src/styles.scss"],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/back-office/**/*.ts",
+              "projects/back-office/**/*.html"
+            ],
+            "eslintConfig": "projects/back-office/eslint.config.js"
+          }
+        },
+        "esbuild": {
           "builder": "@angular/build:application",
           "options": {
             "outputPath": "dist/back-office",
             "index": "projects/back-office/src/index.html",
             "browser": "projects/back-office/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["es-module-shims"],
             "tsConfig": "projects/back-office/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -149,9 +230,7 @@
                 "input": "projects/back-office/public"
               }
             ],
-            "styles": [
-              "projects/back-office/src/styles.scss"
-            ],
+            "styles": ["projects/back-office/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -178,59 +257,26 @@
           },
           "defaultConfiguration": "production"
         },
-        "serve": {
+        "serve-original": {
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "back-office:build:production"
+              "buildTarget": "back-office:esbuild:production"
             },
             "development": {
-              "buildTarget": "back-office:build:development"
+              "buildTarget": "back-office:esbuild:development"
             }
           },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
+          "defaultConfiguration": "development",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "projects/back-office/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/back-office/public"
-              }
-            ],
-            "styles": [
-              "projects/back-office/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/back-office/**/*.ts",
-              "projects/back-office/**/*.html"
-            ],
-            "eslintConfig": "projects/back-office/eslint.config.js"
+            "port": 4201
           }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": [
-      "angular-eslint"
-    ]
+    "schematicCollections": ["angular-eslint"]
   },
   "schematics": {
     "@schematics/angular:component": {
