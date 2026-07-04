@@ -33,6 +33,7 @@
     "@angular/router": "^22.0.5",
     "@angular/service-worker": "^22.0.5",
     "@angular/ssr": "^22.0.5",
+    "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -40,8 +41,9 @@
     "@angular/build": "^22.0.5",
     "@angular/cli": "^22.0.5",
     "@angular/compiler-cli": "^22.0.5",
+    "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
-    "@types/node": "^26.1.0",
+    "@types/node": "^20.17.19",
     "angular-eslint": "22.0.0",
     "esbuild-visualizer": "^0.6.0",
     "eslint": "^9.28.0",
