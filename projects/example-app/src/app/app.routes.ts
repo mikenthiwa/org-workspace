@@ -5,39 +5,28 @@ import { HomeLayoutComponent } from './layout/home-layout/home-layout.component'
 export const routes: Routes = [
   {
     path: '',
+    title: 'Home',
     redirectTo: '/home',
     pathMatch: 'full',
   },
   {
     path: 'home',
+    title: 'Home',
     component: HomeLayoutComponent,
     canActivate: [],
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./feature/home/home.routes'),
-      },
-    ],
+    loadChildren: () => import('./feature/home/home.routes'),
   },
   {
     path: 'access',
+    title: 'Access',
     component: AccessLayoutComponent,
-    children: [
-      {
-        path: 'login',
-        loadChildren: () => import('./feature/login/login.routes'),
-      },
-    ],
+    loadChildren: () => import('./feature/login/login.routes'),
   },
   {
     path: 'lifestyle',
+    title: 'Lifestyle',
     component: HomeLayoutComponent,
     canActivate: [],
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./feature/lifestyle/lifestyle.routes'),
-      },
-    ],
+    loadChildren: () => import('./feature/lifestyle/lifestyle.routes'),
   },
 ];

@@ -5,12 +5,6 @@ export default [
   {
     path: '',
     canActivate: [featureFlagGuard('home')],
-    children: [
-      {
-        path: '',
-        loadComponent: () =>
-          import('./home/home.component').then((m) => m.HomeComponent),
-      },
-    ],
+    loadComponent: () => import('./home/home.component').then((m) => m.HomeComponent),
   },
 ] as Routes;

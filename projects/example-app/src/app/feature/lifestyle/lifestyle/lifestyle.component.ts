@@ -14,6 +14,8 @@ import { CardComponent } from '../../../ui/components/card/card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
+import { GLOBAL_LOGGER } from '../../../core/token/logger.token';
+
 
 @Component({
   selector: 'my-org-lifestyle',
@@ -22,7 +24,7 @@ import { FormsModule } from '@angular/forms';
     CardComponent,
     MatCardModule,
     MatSlideToggleModule,
-    FormsModule,
+    FormsModule
   ],
   templateUrl: './lifestyle.component.html',
   styleUrl: './lifestyle.component.scss',
@@ -30,6 +32,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class LifestyleComponent {
   private featureFlagService: FeatureFlagService = inject(FeatureFlagService);
+  private logger = inject(GLOBAL_LOGGER);
   features: Signal<FeatureModel[]> = signal<FeatureModel[]>([
     {
       featureName: 'Bus',
@@ -42,6 +45,7 @@ export class LifestyleComponent {
   private route = inject(Router);
 
   navigate(feature: FeatureModel): void {
+    this.logger('info', `Navigating to ${feature.route}`);
     this.route.navigate([feature.route]);
   }
 }

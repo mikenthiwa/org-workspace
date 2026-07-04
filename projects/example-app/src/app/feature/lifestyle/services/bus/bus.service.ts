@@ -13,35 +13,39 @@ import {
   BusSchedule,
   Schedule,
   SchedulePayload,
-} from '../../../../../../model/bus.model';
-import { CitiesApiResponse, City } from '../../../../../../model/bus.model';
-import { environment } from '../../../../../../../environments/environment';
+} from '../../../../model/bus.model';
+import { CitiesApiResponse, City } from '../../../../model/bus.model';
+// import { environment } from '../../../../../../../environments/environment';
 import {
   AvailableSeats,
   AvailableSeatsApiResponse,
   SeatsPayloadModel,
-} from '../../../../../../model/available-seats.model';
-import { APIResponse } from '../../../../../../model';
+} from '../../../../model/available-seats.model';
+import { APIResponse } from '../../../../model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../core/token/config.token';
 
 @Service({autoProvided: false})
 export class BusService {
-  apiUrl = environment.apiUrl;
   busReservation: WritableSignal<BusReservationModel> =
     signal<BusReservationModel>({
       booking_channel: 'web',
     } as BusReservationModel);
 
   private http = inject(HttpClient);
+  private config = inject<AppConfig>(APP_CONFIG);
 
   getCitiesInfo(): Observable<City[]> {
-    const url = `${this.apiUrl}buses/cities/aliases`;
+    const url = `${this.config.apiUrl}/buses/cities/aliases`;
     return this.http
       .get<CitiesApiResponse>(url)
       .pipe(map(({ data }) => data.all_cities));
   }
 
   getBusSchedule(payload: SchedulePayload): Observable<Schedule[]> {
-    const url = `${this.apiUrl}buses`;
+    const url = `${this.config.apiUrl}/buses`;
     const params = new HttpParams()
       .set('leaving_from', payload?.leaving_from || '')
       .set('going_to', payload?.going_to || '')
@@ -54,7 +58,7 @@ export class BusService {
   }
 
   getSeats$(payload: ResourceLoaderParams<SeatsPayloadModel>): Observable<AvailableSeats> {
-    const url = `${this.apiUrl}buses/seats`;
+    const url = `${this.config.apiUrl}/buses/seats`;
     const params = new HttpParams()
       .set('fleet_registration_id', payload.params.fleet_registration_id)
       .set('bus_id', payload.params.bus_id.toString())
