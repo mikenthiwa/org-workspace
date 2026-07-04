@@ -1,18 +1,12 @@
 import { Routes } from '@angular/router';
 import { AccessLayoutComponent } from './layout/access-layout/access-layout.component';
-import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
+import { DashboardLayout } from './layout/dashboard-layout/dashboard-layout.component';
 
 export const routes: Routes = [
   {
     path: '',
     title: 'Home',
-    redirectTo: '/home',
-    pathMatch: 'full',
-  },
-  {
-    path: 'home',
-    title: 'Home',
-    component: HomeLayoutComponent,
+    component: DashboardLayout,
     canActivate: [],
     loadChildren: () => import('./feature/home/home.routes'),
   },
@@ -25,7 +19,7 @@ export const routes: Routes = [
   {
     path: 'lifestyle',
     title: 'Lifestyle',
-    component: HomeLayoutComponent,
+    component: DashboardLayout,
     canActivate: [],
     loadChildren: () => import('./feature/lifestyle/lifestyle.routes'),
   },
