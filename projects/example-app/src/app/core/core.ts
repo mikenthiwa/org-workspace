@@ -5,9 +5,8 @@ import {
 import { provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { headersInterceptor } from './interceptors/headers.interceptor';
-
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { provideClientHydration } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 
 interface CoreOptions {
@@ -19,7 +18,7 @@ export function provideCore({ routes }: CoreOptions) {
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptors([headersInterceptor])),
     provideRouter(routes),
-    provideClientHydration(),
+    provideClientHydration(withEventReplay()),
     provideNativeDateAdapter(),
   ];
 }
