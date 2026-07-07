@@ -1,43 +1,26 @@
 import { Routes } from '@angular/router';
 import { AccessLayoutComponent } from './layout/access-layout/access-layout.component';
-import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
+import { DashboardLayout } from './layout/dashboard-layout/dashboard-layout.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full',
-  },
-  {
-    path: 'home',
-    component: HomeLayoutComponent,
+    title: 'Home',
+    component: DashboardLayout,
     canActivate: [],
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./feature/home/home.routes'),
-      },
-    ],
+    loadChildren: () => import('./feature/home/home.routes'),
   },
   {
     path: 'access',
+    title: 'Access',
     component: AccessLayoutComponent,
-    children: [
-      {
-        path: 'login',
-        loadChildren: () => import('./feature/login/login.routes'),
-      },
-    ],
+    loadChildren: () => import('./feature/login/login.routes'),
   },
   {
     path: 'lifestyle',
-    component: HomeLayoutComponent,
+    title: 'Lifestyle',
+    component: DashboardLayout,
     canActivate: [],
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./feature/lifestyle/lifestyle.routes'),
-      },
-    ],
+    loadChildren: () => import('./feature/lifestyle/lifestyle.routes'),
   },
 ];

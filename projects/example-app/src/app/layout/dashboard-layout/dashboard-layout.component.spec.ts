@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomSidenavComponent } from './custom-sidenav.component';
+import { DashboardLayout } from './dashboard-layout.component';
 
-describe('CustomSidenavComponent', () => {
-  let component: CustomSidenavComponent;
-  let fixture: ComponentFixture<CustomSidenavComponent>;
+describe('DashboardLayout', () => {
+  let component: DashboardLayout;
+  let fixture: ComponentFixture<DashboardLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomSidenavComponent],
+      imports: [DashboardLayout],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CustomSidenavComponent);
+    fixture = TestBed.createComponent(DashboardLayout);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
