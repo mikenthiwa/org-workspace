@@ -1,7 +1,7 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="h-full">
   <mat-sidenav
     #drawer
-    class="sidenav"
+    class="!w-[200px] !border-r !border-border !rounded-none"
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -29,6 +29,8 @@
         </button>
       }
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <main class="w-full px-4 md:max-w-4xl">
+      <router-outlet></router-outlet>
+    </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

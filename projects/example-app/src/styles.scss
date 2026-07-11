@@ -1,20 +1,24 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@use 'tailwindcss';
 
 $primary: var(--mat-sys-primary);
 $secondary: var(--mat-sys-secondary);
+$border: var(--mat-sys-outline-variant);
+$border-strong: var(--mat-sys-outline);
+
+@theme {
+  --color-primary: #{$primary};
+  --color-border: #{$border};
+  --color-border-strong: #{$border-strong};
+}
 
 html {
-  color-scheme: light dark;
+  color-scheme: light;
   @include mat.theme(
     (
-      color: (
-        primary: mat.$azure-palette,
-      ),
+      color: mat.$cyan-palette,
       typography: (
         plain-family: 'Roboto, sans-serif',
         regular-weight: 200,
